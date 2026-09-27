@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknivelamento_petee=self.webpackChunknivelamento_petee||[]).push([["3220"],{9531(e){e.exports=JSON.parse('{"blogBasePath":"/nivelamento-petee/blog","blogTitle":"Blog","authorsListPath":"/nivelamento-petee/blog/authors"}')}}]);
