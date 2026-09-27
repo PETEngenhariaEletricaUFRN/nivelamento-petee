@@ -23,12 +23,12 @@ const config = {
   url: 'https://PETEngenhariaEletricaUFRN.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/nivelamento-PETee/',
+  baseUrl: '/nivelamento-petee/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'PETEngenhariaEletricaUFRN', // Usually your GitHub org/user name.
-  projectName: 'nivelamento-PETee', // Usually your repo name.
+  projectName: 'nivelamento-petee', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
