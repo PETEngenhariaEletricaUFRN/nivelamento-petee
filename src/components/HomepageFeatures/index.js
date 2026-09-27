@@ -2,34 +2,60 @@ import clsx from 'clsx';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
+// Importe suas imagens PNG aqui (certifique-se de que os arquivos estão na pasta static/img/)
+import eletronicaImg from '@site/static/img/eletronicaehardware.png';
+import imagemC from '@site/static/img/C++_imagem.png';
+import pcb from '@site/static/img/PCB_imagem.png';
+
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Eletrônica e Hardware',
+    Svg: (props) => (
+
+      <img 
+        src={eletronicaImg} 
+        alt="Eletrônica e Hardware" 
+        style={{ width: '100%', maxWidth: '320px', height: 'auto', display: 'block', margin: '42px auto 30px auto' }} 
+      />
+      
+    ),
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Fundamentos de instalações elétricas, técnicas de soldagem (PTH e SMD), análise de circuitos para os membros do PETee.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'C/C++ e Sistemas Embarcados',
+    Svg: (props) => (
+
+      <img 
+        src={imagemC} 
+        alt="Eletrônica e Hardware" 
+        style={{ width: '100%', maxWidth: '320px', height: 'auto', display: 'block', margin: '20px auto 15px auto' }} 
+      />
+      
+    ),
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Domínio de ponteiros, modularização, gerenciamento de memória e protocolos de barramento (I2C, SPI, UART).
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Desenvolvimento de PCB',
+    Svg: (props) => (
+
+      <img 
+        src={pcb} 
+        alt="Eletrônica e Hardware" 
+        style={{ width: '100%', maxWidth: '180px', height: 'auto', display: 'block', margin: '44px auto 48px auto' }} 
+      />
+      
+    ),
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Desenvolvimento de Placas de Ciruito impresso e Design de impressões 3D.
       </>
     ),
   },

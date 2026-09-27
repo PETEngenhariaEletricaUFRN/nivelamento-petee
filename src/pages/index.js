@@ -15,12 +15,14 @@ function HomepageHeader() {
         <Heading as="h1" className="hero__title">
           {siteConfig.title}
         </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <p className="hero__subtitle" style={{ maxWidth: '700px', margin: '1rem auto 2rem auto', fontSize: '1.25rem', lineHeight: '1.5' }}>
+          Portal de exercícios práticos do PETee UFRN. Um ambiente estruturado para consolidar fundamentos de eletrônica, programação avançada em C/C++ e sistemas embarcados.
+        </p>
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            Acessar Roteiros e Módulos 🚀
           </Link>
         </div>
       </div>
@@ -32,8 +34,8 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title="Nivelamento Técnico"
+      description="Portal de roteiros de exercícios e capacitação técnica do PETee UFRN - Sistemas Embarcados e C/C++">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
