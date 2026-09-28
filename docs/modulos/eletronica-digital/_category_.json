@@ -1,0 +1,8 @@
+{
+  "label": "Eletrônica Digital",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Explore lógica booleana, portas lógicas e circuitos digitais."
+  }
+}

@@ -11,8 +11,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Nivelamento PETee',
-  tagline: 'nice',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/PETee_logo.png',
 
   future: {
     v4: true, 
@@ -41,17 +40,6 @@ const config = {
           sidebarPath: './sidebars.js',
 
         },
-        blog: {
-          showReadingTime: false,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -76,7 +64,7 @@ const config = {
         items: [
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'Sidebar',
             position: 'left',
             label: 'Exercícios',
           },
@@ -94,7 +82,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Exercicios',
                 to: '/docs/intro',
               },
             ],
