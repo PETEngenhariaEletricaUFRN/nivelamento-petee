@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknivelamento_petee=self.webpackChunknivelamento_petee||[]).push([["9818"],{4178(e){e.exports=JSON.parse('{"metadata":{"permalink":"/nivelamento-petee/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":0,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
