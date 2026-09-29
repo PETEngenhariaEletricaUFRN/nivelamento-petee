@@ -1,4 +1,8 @@
 {
   "label": "1. Roteamento de Placa",
-  "position": 2
+  "position": 2,
+  "link": {
+    "type": "doc",
+    "id": "index"
+  }
 }

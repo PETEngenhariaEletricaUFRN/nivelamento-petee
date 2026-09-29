@@ -2,7 +2,7 @@
   "label": "3. Emendas e Condutores",
   "position": 4,
   "link": {
-    "type": "generated-index",
-    "description": "Exercícios de emendas, derivações e isolamento de condutores."
+    "type": "doc",
+    "id": "index"
   }
 }

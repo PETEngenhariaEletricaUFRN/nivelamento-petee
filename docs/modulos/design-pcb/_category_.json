@@ -2,7 +2,7 @@
   "label": "Design de PCB",
   "position": 8,
   "link": {
-    "type": "generated-index",
-    "description": "Aprenda a projetar placas de circuito impresso para seus projetos."
+    "type": "doc",
+    "id": "index"
   }
 }

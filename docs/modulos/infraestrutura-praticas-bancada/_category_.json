@@ -2,7 +2,7 @@
   "label": "Infraestrutura e Práticas de Bancada",
   "position": 1,
   "link": {
-    "type": "generated-index",
-    "description": "Aprenda sobre organização, segurança e práticas essenciais de bancada."
+    "type": "doc",
+    "id": "index"
   }
 }

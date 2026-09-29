@@ -2,7 +2,7 @@
   "label": "Microcontroladores (ESP32/Arduino)",
   "position": 7,
   "link": {
-    "type": "generated-index",
-    "description": "Construa projetos com microcontroladores ESP32 e Arduino."
+    "type": "doc",
+    "id": "index"
   }
 }

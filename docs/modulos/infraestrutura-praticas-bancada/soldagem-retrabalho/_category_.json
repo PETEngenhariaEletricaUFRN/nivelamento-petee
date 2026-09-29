@@ -2,7 +2,7 @@
   "label": "4. Soldagem e Retrabalho",
   "position": 5,
   "link": {
-    "type": "generated-index",
-    "description": "Exercícios de soldagem, dessoldagem, limpeza e inspeção."
+    "type": "doc",
+    "id": "index"
   }
 }

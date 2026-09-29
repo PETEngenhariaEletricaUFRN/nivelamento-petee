@@ -2,7 +2,7 @@
   "label": "1. Ferramentas e Instrumentação",
   "position": 2,
   "link": {
-    "type": "generated-index",
-    "description": "Exercícios de configuração e uso de instrumentos de bancada."
+    "type": "doc",
+    "id": "index"
   }
 }

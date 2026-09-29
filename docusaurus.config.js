@@ -38,6 +38,7 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
+          
 
         },
         theme: {
@@ -54,6 +55,11 @@ const config = {
       image: 'img/docusaurus-social-card.jpg',
       colorMode: {
         respectPrefersColorScheme: true,
+      },
+      docs:{
+        sidebar: {
+          hideable: true,
+        },
       },
       navbar: {
         title: 'PETee',
