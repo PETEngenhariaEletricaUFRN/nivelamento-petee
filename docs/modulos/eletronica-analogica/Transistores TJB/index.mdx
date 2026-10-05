@@ -1,11 +1,215 @@
 ---
-slug: /eletronica-analogica/transistores-bjt
+id: exercicios-circuitos-com-tjb-1
+title: Exercícios - Circuitos com Transistores de Junção Bipolar (TJB)
+description: Lista de exercícios práticos sobre a montagem e análise de circuitos utilizando TJB em comutação e amplificação.
 ---
 
-# Transistores TJB
+## 🛠 Requisitos e Materiais
 
-Exercícios sobre transistores TJB aplicados a chaveamento e amplificação.
+1. Fonte de Alimentação CC
+2. Protoboard e Jumpers
+3. Multímetro Digital
+4. 2x Transistores NPN (BC548, 2N2222 ou BC337)
+5. 1x Transistor PNP (BC558 ou 2N3906)
+6. Resistores fixos: $220\,\Omega$, $1\text{ k}\Omega$, $4,7\text{ k}\Omega$, $10\text{ k}\Omega$ e $100\text{ k}\Omega$
+7. 1x Potenciômetro linear de $10\text{ k}\Omega$ ou $100\text{ k}\Omega$
+8. 1x botão
+9. 1x LED de 5mm (qualquer cor)
 
-## Exercícios
+:::info
+Sempre consulte o *datasheet* do componente para identificar corretamente a pinagem (Coletor, Base e Emissor).
+:::
 
-Adicione aqui os exercícios deste submódulo.
+## 📝 Lista de Exercícios
+
+### Exercício 1: Transistor NPN como Chave Eletrônica (Saturação e Corte)
+
+**Objetivo:** Monte o circuito apresentado para verificar o funcionamento do transistor NPN operando como uma chave controlada por uma pequena corrente de base.
+
+**Montagem do Circuito:** Conecte o **Emissor** do transistor NPN ao GND ($0\text{ V}$). Conecte o **Coletor** ao catodo do LED. O anodo do LED vai ligado a um resistor de $220\,\Omega$, que por sua vez vai aos $5\text{ V}$ da fonte. Para controlar a **Base**, ligue um resistor de $4,7\text{ k}\Omega$ em série com o botão (pushbutton) indo para os $5\text{ V}$. Adicione um resistor de $10\text{ k}\Omega$ da Base direto para o GND (resistor de *pull-down*).
+
+1. Alimente o circuito com **$5\text{ V}$**. Sem pressionar o botão, meça a tensão entre o Coletor e o Emissor ($V_{CE}$).
+2. Pressione o botão. Meça novamente a tensão $V_{CE}$.
+3. Com o botão ainda pressionado, meça a tensão entre a Base e o Emissor ($V_{BE}$).
+
+:::tip 
+esse é o circuito padrão para acionar coisas que exigem mais corrente do que o pino do microcontrolador pode fornecer.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  
+  **1. Malha do Coletor ($R_C$):** 
+  $$R_C = \frac{V_{CC} - V_{LED} - V_{CE(sat)}}{I_C}$$
+  $$R_C = \frac{5 - 2,0 - 0}{0,012} = 250\,\Omega \rightarrow \text{Adotado: } 220\,\Omega$$
+  $$I_{C(real)} = \frac{5 - 2,0}{220} \approx 0,0136\text{ A} = 13,6\text{ mA}$$
+
+  **2. Corrente de Base Mínima ($I_{B(min)}$):** 
+  $$I_{B(min)} = \frac{I_{C(real)}}{\beta}$$
+  $$I_{B(min)} = \frac{13,6\text{ mA}}{100} = 0,136\text{ mA}$$
+
+  **3. Corrente de Saturação:** 
+  $$I_{B(sat)} = I_{B(min)} \cdot \text{Fator de Segurança (7)}$$
+  $$I_{B(sat)} = 0,136\text{ mA} \cdot 7 \approx 0,95\text{ mA}$$
+
+  **4. Resistor de Base ($R_B$):** 
+  $$R_B = \frac{V_{in} - V_{BE}}{I_{B(sat)}}$$
+  $$R_B = \frac{5 - 0,7}{0,00095} \approx 4.526\,\Omega \rightarrow \text{Adotado: } 4,7\text{ k}\Omega$$
+
+* **Resultados de Bancada Esperados:** 
+  * **Botão solto (Corte):** O LED ficará apagado. $V_{CE} \approx 5,0\text{ V}$ e $V_{BE} = 0\text{ V}$.
+  * **Botão pressionado (Saturação):** O LED acenderá. $V_{CE} = 0\text{ V}$ (ideal) e $V_{BE} \approx 0,7\text{ V}$.
+
+</details>
+
+---
+
+### Exercício 2: Medição Indireta do Ganho de Corrente ($\beta$ ou $h_{FE}$)
+
+**Objetivo:** Monte o circuito apresentado para medir indiretamente as correntes de base, coletor e o ganho de corrente ($\beta$) do transistor.
+
+**Montagem do Circuito:** Conecte o **Emissor** do NPN ao GND. Ligue um resistor de $1\text{ k}\Omega$ do **Coletor** para o barramento positivo. Ligue um resistor de $100\text{ k}\Omega$ da **Base** para o barramento positivo.
+
+1. Ajuste a fonte para **$12\text{ V}$**. 
+2. Meça a tensão sobre os terminais do resistor da base ($100\text{ k}\Omega$) e calcule a corrente de base ($I_B$).
+3. Meça a tensão sobre os terminais do resistor do coletor ($1\text{ k}\Omega$) e calcule a corrente de coletor ($I_C$).
+4. Calcule o ganho do seu transistor.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  
+  **1. Tensão no Resistor da Base ($V_{RB}$):**
+  $$V_{RB} = V_{CC} - V_{BE}$$
+  $$V_{RB} = 12\text{ V} - 0,7\text{ V} = 11,3\text{ V}$$
+
+  **2. Corrente de Base ($I_B$):**
+  $$I_B = \frac{V_{RB}}{R_B}$$
+  $$I_B = \frac{11,3\text{ V}}{100\text{ k}\Omega} = 113\,\mu\text{A} = 0,113\text{ mA}$$
+
+  **3. Corrente de Coletor ($I_C$) - Exemplo de Medição:**
+  $$I_C = \frac{V_{RC}}{R_C}$$
+  $$I_C = \frac{V_{RC}}{1\text{ k}\Omega}$$
+
+  **4. Ganho de Corrente ($\beta$):**
+  $$\beta = \frac{I_C}{I_B}$$
+  $$\beta = \frac{V_{RC}}{0,113}$$
+
+* **Resultados de Bancada Esperados:** 
+  * O multímetro mostrará a tensão da base constante ($V_{RB} \approx 11,3\text{ V}$) e uma tensão no coletor que dependerá do $\beta$ do componente específico.
+  * O cálculo final do ganho confirmará o $h_{FE}$ da sua unidade.
+
+</details>
+
+---
+
+### Exercício 3: Inversor Lógico (Porta NOT)
+
+**Objetivo:** Monte o circuito descrito para implementar uma porta lógica inversora passiva utilizando um TJB NPN e resistores.
+
+**Montagem do Circuito:** Conecte o **Emissor** do NPN ao GND. Conecte um resistor de $1\text{ k}\Omega$ do **Coletor** para os **$5\text{ V}$**. O próprio terminal do Coletor será o seu ponto de **Saída**. Conecte um resistor de $10\text{ k}\Omega$ à **Base**. O terminal solto deste resistor será a sua **Entrada** (use um jumper longo).
+
+1. Alimente o barramento.
+2. Conecte o jumper da base ao **GND** e meça a tensão no ponto de Saída.
+3. Conecte o jumper da base aos **$5\text{ V}$** e meça novamente a tensão na Saída.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  
+  **1. Base em Nível Lógico BAIXO ($V_{in} = 0\text{ V}$):**
+  $$V_{BE} = 0\text{ V} \rightarrow \text{Transistor em Corte } (I_C = 0)$$
+  $$V_{out} = V_{CC} - (R_C \cdot I_C)$$
+  $$V_{out} = 5\text{ V} - (1\text{ k}\Omega \cdot 0\text{ A}) = 5\text{ V} \text{ (ALTO)}$$
+
+  **2. Base em Nível Lógico ALTO ($V_{in} = 5\text{ V}$):**
+  $$I_B = \frac{V_{in} - V_{BE}}{R_B} = \frac{5\text{ V} - 0,7\text{ V}}{10\text{ k}\Omega} = 0,43\text{ mA}$$
+  *(Com $I_B$ suficiente, o transistor satura)*
+  $$I_{C(sat)} = \frac{V_{CC} - V_{CE(sat)}}{R_C} \approx \frac{5\text{ V} - 0\text{ V}}{1\text{ k}\Omega} = 5\text{ mA}$$
+  $$V_{out} = V_{CE(sat)} \approx 0\text{ V} \text{ (BAIXO)}$$
+
+* **Resultados de Bancada Esperados:** 
+  * **Base em GND (BAIXO):** Saída medirá $\approx 5\text{ V}$ (ALTO).
+  * **Base em 5 V (ALTO):** Saída medirá $\approx 0\text{ V}$ a $0,2\text{ V}$ (BAIXO).
+
+</details>
+
+---
+
+### Exercício 4: Transistor PNP como Chave
+
+**Objetivo:** Monte o circuito apresentado para acionar uma carga contrastando a lógica de acionamento do transistor PNP em relação ao NPN.
+
+**Montagem do Circuito:** Usaremos agora o PNP (ex: BC558). Conecte o **Emissor** direto nos **$5\text{ V}$**. Conecte o **Coletor** a um resistor de $220\,\Omega$ em série com um LED, e o outro lado do LED ao **GND**. Conecte a **Base** a um resistor de $4,7\text{ k}\Omega$. A perna solta deste resistor é a sua Entrada.
+
+1. Ligue a fonte$.
+2. Conecte a Base da base aos **$5\text{ V}$**. Observe o comportamento do LED.
+3. Conecte a Base da base ao **GND**. Observe o LED.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  
+  **1. Base em $5\text{ V}$ (Nível ALTO):**
+  $$V_E = 5\text{ V}, \quad V_B = 5\text{ V}$$
+  $$V_{EB} = V_E - V_B = 5\text{ V} - 5\text{ V} = 0\text{ V}$$
+  $$V_{EB} < 0,7\text{ V} \rightarrow \text{Transistor em Corte } (I_C = 0)$$
+
+  **2. Base em $0\text{ V}$ / GND (Nível BAIXO):**
+  $$V_E = 5\text{ V}, \quad V_B = 0\text{ V}$$
+  $$V_{EB} = V_E - V_B = 5\text{ V}$$
+  $$I_B = \frac{V_E - V_{EB(on)} - V_B}{R_B}$$
+  $$I_B = \frac{5 - 0,7 - 0}{4.700} \approx 0,91\text{ mA} \rightarrow \text{Saturação}$$
+
+* **Resultados de Bancada Esperados:**
+  * **Base conectada em $5\text{ V}$:** LED apagado (Corte).
+  * **Base conectada ao GND:** LED acende (Saturação).
+
+</details>
+
+---
+
+### Exercício 5: Controle na Região Ativa
+
+**Objetivo:** Monte o circuito apresentado para verificar que o transistor pode atuar como um amplificador controlável em vez de apenas uma chave.
+
+**Montagem do Circuito:** Conecte o **Emissor** do transistor NPN ao GND. Conecte o **Coletor** ao catodo do LED, e o anodo do LED via um resistor de $220\,\Omega$ aos **$5\text{ V}$**. Insira o potenciômetro na protoboard: um pino extremo nos $5\text{ V}$ e o outro pino extremo no GND. Conecte um resistor de proteção de $1\text{ k}\Omega$ no **pino central (cursor)** do potenciômetro e ligue a outra extremidade à **Base** do transistor.
+
+1. Gire o potenciômetro lentamente do GND para os $5\text{ V}$ e observe a intensidade do brilho do LED.
+2. Posicione o potenciômetro no "meio" do caminho, de forma que o LED esteja com brilho médio (nem muito fraco, nem no máximo).
+3. Meça a tensão $V_{CE}$ nesse momento.
+
+:::warning 
+o pino central do potenciômetro não deve ser ligado sem um resistor em série com ele. Se a resistência do potenciômetro for a zero, a base receberá $5\text{ V}$ diretos, queimando o componente.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  
+  **1. Corrente de Base Variável ($I_B$):**
+  $$V_{BB} = \text{Tensão do cursor do potenciômetro } (0\text{ a } 5\text{ V})$$
+  $$I_B = \frac{V_{BB} - V_{BE}}{R_B} = \frac{V_{BB} - 0,7}{1\text{ k}\Omega}$$
+
+  **2. Corrente de Coletor Linear ($I_C$):**
+  *(Dentro da região ativa)*
+  $$I_C = \beta \cdot I_B$$
+
+  **3. Tensão Coletor-Emissor Dinâmica ($V_{CE}$):**
+  $$V_{CE} = V_{CC} - V_{LED} - (R_C \cdot I_C)$$
+  $$V_{CE} = 5 - 2,0 - (220 \cdot I_C)$$
+
+  **4. Potência Dissipada no Transistor ($P_D$):**
+  $$P_D = V_{CE} \cdot I_C$$
+
+* **Resultados de Bancada Esperados:**
+  * O brilho do LED aumentará e diminuirá suavemente de acordo com a rotação do eixo.
+  * A tensão $V_{CE}$ lida no multímetro para o brilho médio estará na casa dos $1,5\text{ V}$ a $3\text{ V}$.
+
+</details>

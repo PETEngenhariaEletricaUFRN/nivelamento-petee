@@ -1,11 +1,102 @@
 ---
-slug: /eletronica-analogica/circuitos-com-capacitores
+id: exercicios-circuitos-com-capacitor-1
+title: Exercícios - Circuitos com Capacitores
+description: Lista de exercícios práticos sobre carga, descarga e associação de capacitores em corrente contínua.
 ---
 
-# Circuitos com Capacitores
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-Exercícios sobre carga e descarga de capacitores em circuitos elétricos.
+## 🛠 Requisitos e Materiais
 
-## Exercícios
+1. Fonte de Alimentação CC (Ajustável para $5\text{ V}$ e $12\text{ V}$)
+2. Protoboard
+3. Jumpers
+4. Multímetro Digital
+5. Capacitores Eletrolíticos: 2x $1000\mu\text{F}$ (com tensão nominal de no mínimo $16\text{ V}$)
+6. Resistores fixos: $1\text{ k}\Omega$ e $10\text{ k}\Omega$
+7. 1x LED de 5mm (qualquer cor)
+8. Opcional: Cronômetro (pode ser o do celular)
 
-Adicione aqui os exercícios deste submódulo.
+## 📝 Lista de Exercícios
+
+### Exercício 1: Carga e Descarga (Constante de Tempo RC)
+
+**Objetivo:** monte o circuito mostrado na figura e siga os passos abaixo para verificar experimentalmente a constante de tempo ($\tau$).
+
+circuito - Conecte um resistor de $10\text{ k}\Omega$ em série com um capacitor eletrolítico de $1000\mu\text{F}$. O terminal positivo (perna maior) do capacitor deve estar conectado ao resistor, e o terminal negativo (indicado pela faixa no corpo) ao GND ($0\text{ V}$). Use um jumper que funcione como uma "chave" para conectar o terminal livre do resistor à linha de $12\text{ V}$. Conecte o voltímetro em paralelo diretamente sobre o capacitor.
+
+1. Com o jumper de alimentação desconectado, provoque um curto-circuito temporário nos terminais do capacitor por 1 segundo para garantir que ele esteja totalmente descarregado.
+2. Ligue o jumper do resistor ao barramento de $12\text{ V}$ e dispare o cronômetro simultaneamente.
+3. Observe o aumento da tensão no multímetro e pause o cronômetro exatamente quando a tensão cruzar a marca de $7,58\text{ V}$.
+4. Desconecte a alimentação de $12\text{ V}$ e conecte o terminal livre do resistor diretamente ao GND para observar o processo de descarga.
+
+:::tip 
+A constante de tempo ($\tau = R \cdot C$) indica o tempo necessário para o capacitor atingir aproximadamente $63,2\%$ da tensão total da fonte durante a carga.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Equação de carga do capacitor: $V_C(t) = V \cdot (1 - e^{-\frac{t}{\tau}})$
+  * Constante de tempo: $\tau = R \cdot C = 10.000\Omega \cdot 0,001\text{ F} = 10\text{ s}$.
+  * Tensão em $t = 1\tau$ ($10\text{ s}$): 
+    $$V_C(10) = 12\text{ V} \cdot (1 - e^{-1}) \approx 12\text{ V} \cdot (1 - 0,368) = 12\text{ V} \cdot 0,632 \approx 7,58\text{ V}$$
+  * Tensão de regime permanente (carga total): Aprox. $5\tau$ ($50\text{ s}$) resultando em $V_C(50) \approx 11,92\text{ V} \approx 12,00\text{ V}$.
+* **Resultados de Bancada Esperados:** 
+  * O cronômetro deve marcar algo muito próximo de $10\text{ segundos}$ ao atingir $7,58\text{ V}$. 
+  * Durante a descarga, a tensão obedece à equação $V_C(t) = V \cdot e^{-\frac{t}{\tau}}$, o que explica a queda rápida no início e a desaceleração conforme se aproxima de $0\text{ V}$.
+
+</details>
+
+---
+
+### Exercício 2: Armazenamento e Associação de Capacitores
+
+**Objetivo:** Monte os circuitos apresentados para cada teste e verifique os efeitos das associações em série e em paralelo na capacitância equivalente, observando o tempo de brilho de um LED.
+
+circuito - Monte um circuito independente onde um LED está em série com um resistor de $1\text{ k}\Omega$, ambos conectados ao GND. A associação de capacitores testada será colocada em paralelo com o conjunto LED + Resistor. Use um jumper para tocar no positivo da associação e alimentá-la momentaneamente com **$5\text{ V}$**. 
+
+1. **Teste 1 (Capacitor Único):** Coloque apenas um capacitor de $1000\mu\text{F}$ no circuito. Toque o jumper de $5\text{ V}$ no positivo para carregar. Remova o jumper e observe quanto tempo o LED leva para apagar completamente.
+2. **Teste 2 (Paralelo):** Adicione um segundo capacitor de $1000\mu\text{F}$ em paralelo com o primeiro (positivo com positivo, negativo com negativo). Repita o processo de carga e remoção da fonte.
+3. **Teste 3 (Série):** Conecte os dois capacitores em série (o negativo do primeiro no positivo do segundo). Ligue o conjunto ao circuito do LED, aplique a carga e remova. 
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Teste 1 (Único): $C = 1000\mu\text{F}$.
+  * Teste 2 (Paralelo): $C_{eq} = C_1 + C_2 = 2000\mu\text{F}$.
+  * Teste 3 (Série): $C_{eq} = \frac{C_1 \cdot C_2}{C_1 + C_2} = 500\mu\text{F}$.
+* **Resultados de Bancada Esperados:** 
+  * No **Paralelo**, o LED levará perceptivelmente o dobro do tempo para apagar em comparação ao capacitor único.
+  * Na **Série**, a descarga será muito rápida, apagando o LED na metade do tempo do capacitor único.
+
+</details>
+
+---
+
+### Exercício 3: Comportamento da Corrente Transitória
+
+**Objetivo:** monte o circuito abaixo e meça o pico de corrente inicial em um capacitor descarregado e observe o bloqueio de Corrente Contínua em regime permanente.
+
+circuito - Monte o seguinte circuito em série: Alimentação de $12\text{ V}$ $\rightarrow$ Amperímetro (escala de mA) $\rightarrow$ Resistor limitador de $1\text{ k}\Omega$ $\rightarrow$ Capacitor de $1000\mu\text{F}$ (respeitando a polaridade) $\rightarrow$ GND.
+
+1. Garanta que o capacitor está totalmente descarregado efetuando um curto-circuito em seus terminais com um jumper por 1 segundo.
+2. Ligue a alimentação de $12\text{ V}$ e observe o visor do amperímetro atentamente.
+3. Anote o valor máximo da corrente no exato instante em que o circuito é fechado.
+4. Aguarde aproximadamente 10 a 15 segundos e registre o valor final estabilizado da corrente.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Instante inicial ($t=0$): O capacitor não possui oposição à tensão ($V_C = 0$). A corrente é limitada apenas pelo resistor: $I_{max} = \frac{12\text{ V}}{1.000\Omega} = 12,0\text{ mA}$.
+  * Regime permanente ($t \to \infty$): O capacitor se carrega até $12\text{ V}$. Não havendo mais diferença de potencial entre a fonte e o componente, a corrente de malha cessa: $I_{final} = 0,0\text{ mA}$.
+* **Resultados de Bancada Esperados:** 
+  * Ao ligar a fonte, o amperímetro exibirá um pico transitório muito próximo a $12\text{ mA}$.
+  * Esse valor decairá exponencialmente.
+  * Após alguns segundos, a corrente medida será de $0,00\text{ mA}$, provando que capacitores bloqueiam a passagem contínua de corrente CC.
+
+</details>

@@ -1,11 +1,133 @@
 ---
-slug: /eletronica-analogica/circuitos-com-potenciometro
+id: exercicios-circuitos-com-potenciometro-1
+title: Exercícios - Circuitos com Potenciômetro
+description: Lista de exercícios práticos sobre a montagem e análise de circuitos utilizando potenciômetros.
 ---
 
-# Circuitos com Potenciômetro
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-Exercícios sobre o uso de potenciômetros como resistores variáveis e divisores de tensão.
+## 🛠 Requisitos e Materiais
 
-## Exercícios
+1. Fonte de Alimentação CC
+2. Protoboard
+3. Jumpers
+4. Multímetro Digital
+5. Potenciômetro Linear de $10\text{ k}\Omega$ (B10K)
+6. Resistores fixos: $220\Omega$, 4,7k$\Omega$ e $10k\Omega$
+7. 1x LED de 5mm (qualquer cor)
 
-Adicione aqui os exercícios deste submódulo.
+## 📝 Lista de Exercícios
+
+### Exercício 1: O Potenciômetro como Divisor de Tensão
+
+**Objetivo:** monte o circuito abaixo e verifique o funcionamento do potenciômetro utilizando todos os seus três terminais seguindo os passos abaixo.
+
+1. Gire o eixo do potenciômetro lentamente de um extremo ao outro e registre os valores de tensão enquanto altera o valor da resistência. 
+2. Desligue o circuito, meça a resistência total entre os Terminais 1 e 3, e depois meça a resistência entre 1-2 e 2-3 com o eixo no meio do curso.
+
+
+1. Conecte o Terminal 1 do potenciômetro ao barramento positivo ($5\text{ V}$) da protoboard e o Terminal 3 ao GND ($0\text{ V}$).
+2. Conecte a ponta de prova vermelha do multímetro (na escala de Tensão CC) no Terminal 2 (cursor central) e a ponta preta no GND.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Conceito Teórico:** 
+  O potenciômetro funciona como dois resistores em série ($R_A$ e $R_B$) onde $R_A + R_B = 10\text{ k}\Omega$. A tensão no cursor é dada pela fórmula do divisor de tensão:
+  $$V_{\text{out}} = 5\text{ V} \cdot \left(\frac{R_B}{R_A + R_B}\right)$$
+* **Resultados de Bancada Esperados:** 
+  * Tensão no Terminal 2: Variará de forma contínua entre $0\text{ V}$ e $5,00\text{ V}$.
+  * Com o eixo centralizado (cerca de 50%), a resistência entre os pinos 1-2 e 2-3 será de aproximadamente $5\text{ k}\Omega$ cada, resultando em $\approx 2,5\text{ V}$ na saída.
+
+</details>
+
+---
+
+### Exercício 2: O Potenciômetro como Reostato 
+
+**Objetivo:** Monte o circuito apresentado utilizando o potenciômetro para limitar a corrente e controlar o brilho de um LED. Em seguida, siga os passos abaixo.
+
+2. Gire o eixo e observe a variação no brilho do LED.
+3. Insira o multímetro em série com o circuito (escala mA) para medir a corrente máxima e mínima.
+
+1. Monte o circuito em série: Alimentação de $5\text{ V}$ $\rightarrow$ Resistor fixo de $220\Omega$ $\rightarrow$ Terminal 1 do Potenciômetro $\rightarrow$ Terminal 2 do Potenciômetro (o Terminal 3 fica solto) $\rightarrow$ Anodo do LED $\rightarrow$ Catodo do LED $\rightarrow$ GND.
+
+
+:::tip 
+O resistor fixo de $220\Omega$ é obrigatório para garantir que, quando o potenciômetro estiver ajustado para $0\Omega$, a corrente não ultrapasse o limite do LED, evitando sua queima.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos (considerando $V_{\text{LED}} \approx 2,0\text{ V}$):**
+  * Tensão sobre o potenciômetro: $V_{\text{R}} = 5\text{ V} - 2\text{ V} = 3,0\text{ V}$
+  * Corrente Máxima (Potenciômetro em $0\Omega$): $I_{\text{max}} = \frac{3,0\text{ V}}{220\Omega} \approx 13,6\text{ mA}$
+  * Corrente Mínima (Potenciômetro em $10\text{ k}\Omega$): $I_{\text{min}} = \frac{3,0\text{ V}}{10.220\Omega} \approx 0,29\text{ mA}$
+* **Resultados de Bancada Esperados:** 
+  * O brilho do LED será máximo em uma extremidade e o LED deverá apagar (ou ficar quase imperceptível) na outra extremidade, assim como os valores da corrente devem ser aproximadamente os valores calculados.
+
+</details>
+
+---
+
+### Exercício 3: Efeito de Carga sobre o Divisor Variável
+
+**Objetivo:** Monte o circuito apresentado e siga os passos abaixo para verificar como se altera o comportamento do divisor de tensão projetado com um potenciômetro.
+
+1. Sem nenhuma carga, ajuste o eixo com cuidado até que o multímetro indique exatos $6,0\text{ V}$ no Terminal 2. 
+2. Conecte um resistor fixo de $4,7\text{ k}\Omega$ entre o Terminal 2 e o GND (simulando a conexão de um sensor ou etapa de ganho).
+3. Meça novamente a tensão no Terminal 2.
+
+
+circuito - Alimente o potenciômetro de $10\text{ k}\Omega$ com a fonte ajustada em **$12\text{ V}$** (Terminais 1 e 3).
+
+
+:::tip 
+Ao conectar o resistor de carga ele deve derrubar a resistência equivalente daquela parte do divisor de tensão.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * No ajuste inicial ($6\text{ V}$ de $12\text{ V}$), o potenciômetro está simétrico: a resistência superior ($R_A$) é $5\text{ k}\Omega$ e a inferior ($R_B$) é $5\text{ k}\Omega$.
+  * Ao inserir a carga ($R_L = 4,7\text{ k}\Omega$), ela fica em paralelo com $R_B$:
+    $$R_{\text{inferior\_eq}} = \frac{5\text{ k}\Omega \cdot 4,7\text{ k}\Omega}{5\text{ k}\Omega + 4,7\text{ k}\Omega} = 2,42\text{ k}\Omega$$
+  * A nova tensão no nó central será:
+    $$V_{\text{carregado}} = 12\text{ V} \cdot \left(\frac{2,42\text{ k}\Omega}{5\text{ k}\Omega + 2,42\text{ k}\Omega}\right) = 3,91\text{ V}$$
+* **Resultados de Bancada Esperados:** 
+  * Queda brusca da tensão: o voltímetro registrará uma mudança de $6,00\text{ V}$ para $\approx 3,91\text{ V}$ apenas pela inserção da carga.
+
+</details>
+
+---
+
+### Exercício 4: Ponte de Wheatstone
+
+**Objetivo:** monte o circuito abaixo e utilize o potenciômetro para balancear uma Ponte de Wheatstone, ajustando a malha até que a diferença de potencial entre os dois divisores paralelos seja igual a zero.
+
+1. Conecte as pontas de prova do multímetro (escala de Tensão CC) diretamente entre o **Nó A** (ponta vermelha) e o **Nó B** (ponta preta). *Atenção: neste caso, nenhuma das pontas vai ao GND.*
+2. Ajuste o eixo com precisão até que o visor registre exatos $0,00\text{ V}$ (Ponte Balanceada).
+
+circuito - Monte um divisor de tensão fixo utilizando dois resistores de mesmo valor em série (ex: dois de $4,7\text{ k}\Omega$). Conecte as extremidades livres à fonte de **$5\text{ V}$** e ao GND. O nó central entre eles será chamado de **Nó A**.
+Em paralelo com essa estrutura, conecte os Terminais 1 e 3 do potenciômetro de $10\text{ k}\Omega$ à linha de $5\text{ V}$ e ao GND, respectivamente. O cursor central (Terminal 2) será o **Nó B**.
+
+
+:::info
+Esse princípio de balanceamento é a base de funcionamento de sensores de precisão na instrumentação.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Conceitos Teóricos:**
+  * O divisor de tensão fixo usa dois resistores idênticos ($R_1 = R_2$). Logo, a tensão no Nó A é exatamente a metade da tensão da fonte: $V_A = 2,50\text{ V}$.
+  * Para que a ponte esteja em equilíbrio, a diferença de potencial lida pelo multímetro deve ser nula ($V_A - V_B = 0\text{ V}$). Isso implica que $V_B$ também deve ser obrigatoriamente $2,50\text{ V}$.
+  * Como o potenciômetro totaliza $10\text{ k}\Omega$, ele precisará estar ajustado exatamente no meio do seu curso resistivo ($5\text{ k}\Omega$ para cima e $5\text{ k}\Omega$ para baixo) para fornecer $2,50\text{ V}$ no Nó B.
+* **Resultados de Bancada Esperados:**
+  * Ao girar o eixo, o multímetro indicará valores positivos de um lado do centro geométrico e negativos do outro.
+  * O ponto de equilíbrio ($0,00\text{ V}$) será encontrado quando o eixo estiver a aproximadamente 50% do seu curso mecânico. 
+
+</details>

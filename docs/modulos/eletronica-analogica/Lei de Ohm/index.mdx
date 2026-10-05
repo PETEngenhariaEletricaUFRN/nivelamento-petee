@@ -1,11 +1,174 @@
 ---
-slug: /eletronica-analogica/lei-de-ohm
+id: exercicios-lei-de-ohm-1
+title: Exercícios - Lei de Ohm
+sidebar_label: 1. Circuitos com resistores
+description: Lista de exercícios práticos sobre a montagem de circuitos simples com resistores.
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## 🛠 Requisitos e Materiais
+
+1. Fonte de Alimentação CC (Ajustada em 5V)
+2. Protoboard (Matriz de Contatos)
+3. Multímetro Digital com pontas de prova
+4. Cabos de conexão e Jumpers
+5. Resistores: $10\text{ k}\Omega$, $15\text{ k}\Omega$ e $47\text{ k}\Omega$
+
+## 📝 Lista de Exercícios
+
+### Exercício 1: Lei de Ohm
+
+**Objetivo:** Monte o circuito abaixo na protoboard e realize a medição de tensão e corrente sobre um resistor de $10\text{ k}\Omega$.
+
+:::note[Circuito Simples]
+
+<p align="center">
+  ![Circuito Simples](./img/Circuito_Simples.svg)
+</p>
+
+:::
+
+:::tip
+Para medir corrente, abra o circuito para que o amperímetro faça parte do caminho da corrente. Nunca conecte o amperímetro em paralelo com a fonte.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculo Teórico:** 
+  $$I = \frac{V}{R_1} = \frac{5\text{ V}}{10.000\Omega} = 0,50\text{ mA}$$
+* **Resultados de Bancada Esperados:** 
+  * Tensão medida em $R_1$: $5,00\text{ V}$
+  * Corrente medida: $\approx 0,50\text{ mA}$
+
+</details>
+
 ---
 
-# Lei de Ohm e Resistores
+### Exercício 2: Divisor de Tensão
 
-Exercícios sobre a Lei de Ohm e associações de resistores em série e paralelo.
+**Objetivo:** Monte o circuito apresentado e analise a distribuição de tensão e a redução de corrente em uma associação em série composta por $R_1$, $R_2$ e $R_3$.
 
-## Exercícios
+:::note[Divisor de Tensão]
 
-Adicione aqui os exercícios deste submódulo.
+<p align="center">
+  ![Divisor de Tensão](./img/Divisor_de_Tens_o.svg)
+</p>
+
+:::
+
+:::tip
+A soma das quedas de tensão nos resistores individuais ($V_{R1} + V_{R2} + V_{R3}$) deve ser rigorosamente igual à tensão total fornecida pela fonte ($5\text{ V}$).
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * $R_{\text{eq}} = R_1 + R_2 + R_3 = 10\text{ k}\Omega + 15\text{ k}\Omega + 47\text{ k}\Omega = 72\text{ k}\Omega$
+  * $I_{\text{total}} = \frac{5\text{ V}}{72.000\Omega} \approx 0,0694\text{ mA}$
+  * $V_{R1} = 5\text{ V} \cdot \left(\frac{10\text{ k}\Omega}{72\text{ k}\Omega}\right) \approx 0,694\text{ V}$
+  * $V_{R2} = 5\text{ V} \cdot \left(\frac{15\text{ k}\Omega}{72\text{ k}\Omega}\right) \approx 1,042\text{ V}$
+  * $V_{R3} = 5\text{ V} \cdot \left(\frac{47\text{ k}\Omega}{72\text{ k}\Omega}\right) \approx 3,264\text{ V}$
+* **Resultados de Bancada Esperados:**
+  * Corrente Total: $\approx 0,07\text{ mA}$
+  * Tensão sobre $R_1$: $\approx 0,69\text{ V}$
+  * Tensão sobre $R_2$: $\approx 1,04\text{ V}$
+  * Tensão sobre $R_3$: $\approx 3,26\text{ V}$
+
+</details>
+
+---
+
+### Exercício 3: Divisão de Corrente
+
+**Objetivo:** Monte o circuito apresentado e verifique experimentalmente a divisão da corrente total entre três ramos em paralelo ($R_1$, $R_2$ e $R_3$).
+
+:::note[Divisor de Corrente]
+
+<p align="center">
+  ![Divisor de Corrente](./img/Divisor_corrente.svg)
+</p>
+
+:::
+
+:::tip
+Pela Primeira Lei de Kirchhoff (Lei dos Nós), a corrente total que sai da fonte deve ser exatamente a soma das correntes que fluem por todos os ramos individuais ($I_T = I_1 + I_2 + I_3$).
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * $I_1 = \frac{5\text{ V}}{10.000\Omega} = 0,500\text{ mA}$
+  * $I_2 = \frac{5\text{ V}}{15.000\Omega} \approx 0,333\text{ mA}$
+  * $I_3 = \frac{5\text{ V}}{47.000\Omega} \approx 0,106\text{ mA}$
+  * $I_{\text{total}} = I_1 + I_2 + I_3 = 0,500 + 0,333 + 0,106 \approx 0,939\text{ mA}$
+* **Resultados de Bancada Esperados:**
+  * Tensão sobre todos os resistores: $5,00\text{ V}$
+  * Medições de corrente nos ramos: $I_1 \approx 0,50\text{ mA}$, $I_2 \approx 0,33\text{ mA}$, $I_3 \approx 0,11\text{ mA}$
+  * Corrente Total: $I_{\text{total}} \approx 0,94\text{ mA}$
+
+</details>
+
+---
+
+### Exercício 4: Circuito Misto Série-Paralelo
+
+**Objetivo:** Monte o circuito misto abaixo, calcule e meça a queda de tensão sobre cada componente e a corrente nos ramos paralelos de $R_2$ e $R_3$.
+
+:::note[Circuito Misto]
+
+<p align="center">
+  ![Circuito Misto](./img/Circuito_Misto.svg)
+</p>
+
+:::
+
+:::tip
+Para simplificar o cálculo teórico, resolva primeiro a resistência equivalente do bloco paralelo ($R_{23}$) e trate o circuito resultante como um divisor de tensão simples formado por $R_1$ e $R_{23}$.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * $R_{23} = \frac{15\text{ k}\Omega \cdot 47\text{ k}\Omega}{15\text{ k}\Omega + 47\text{ k}\Omega} \approx 11,37\text{ k}\Omega$
+  * $R_{\text{total}} = R_1 + R_{23} = 10\text{ k}\Omega + 11,37\text{ k}\Omega = 21,37\text{ k}\Omega$
+  * $I_{\text{total}} = \frac{5\text{ V}}{21,37\text{ k}\Omega} \approx 0,234\text{ mA}$
+  * $V_{23} = I_{\text{total}} \cdot R_{23} = 0,234\text{ mA} \cdot 11,37\text{ k}\Omega \approx 2,66\text{ V}$
+  * $I_2 = \frac{V_{23}}{R_2} = \frac{2,66\text{ V}}{15.000\Omega} \approx 0,177\text{ mA}$
+  * $I_3 = \frac{V_{23}}{R_3} = \frac{2,66\text{ V}}{47.000\Omega} \approx 0,057\text{ mA}$
+* **Resultados de Bancada Esperados:**
+  * Tensão sobre $R_1$: $V_{R1} \approx 2,34\text{ V}$
+  * Tensão no paralelo: $V_{R2} = V_{R3} \approx 2,66\text{ V}$
+  * Corrente no ramo de $R_2$: $I_2 \approx 0,18\text{ mA}$
+  * Corrente no ramo de $R_3$: $I_3 \approx 0,06\text{ mA}$
+
+</details>
+
+---
+
+### Exercício 5: Associação com Curto-Circuito
+
+**Objetivo:** Monte a estrutura do Exercício 4 e analise o comportamento da corrente e da tensão quando o bloco paralelo ($R_2 \parallel R_3$) é bypassado por um curto-circuito.
+
+:::tip
+Para bypassar o trecho paralelo na prática, insira um jumper direto entre o nó que conecta $R_1$, $R_2$ e $R_3$ e o barramento negativo (GND).
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Ao criar o curto em paralelo com $R_2$ e $R_3$, a resistência equivalente do nó se torna $R_{\text{curto}} = 0\Omega$.
+  * A resistência total do circuito passa a ser apenas $R_1$: $R_{\text{total}} = R_1 = 10\text{ k}\Omega$.
+  * Corrente Total do Circuito: $I = \frac{5\text{ V}}{10.000\Omega} = 0,50\text{ mA}$.
+  * Tensão no nó em curto: $V = 0\text{ V}$.
+* **Resultados de Bancada Esperados:**
+  * Tensão medida em $R_2$ e $R_3$: $0,00\text{ V}$
+  * Tensão medida em $R_1$: $5,00\text{ V}$
+  * Corrente total medida: $0,50\text{ mA}$
+
+</details>

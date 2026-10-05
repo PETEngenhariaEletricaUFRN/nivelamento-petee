@@ -1,11 +1,127 @@
 ---
-slug: /eletronica-analogica/circuitos-com-amplificadores-operacionais
+id: exercicios-circuitos-com-amp-ops-1
+title: Exercícios - Circuitos com Amplificadores Operacionais
+description: Lista de exercícios práticos sobre a montagem e análise de circuitos utilizando Amplificadores Operacionais em fonte simples.
 ---
 
-# Circuitos com Amplificadores Operacionais
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-Exercícios sobre amplificadores operacionais e suas principais configurações.
+## 🛠 Requisitos e Materiais
 
-## Exercícios
+1. Fonte de Alimentação CC
+2. Protoboard e Jumpers
+3. Multímetro Digital
+4. 1x CI Amplificador Operacional
+5. 1x Potenciômetro linear de $10\text{ k}\Omega$
+6. Resistores fixos: $1\text{ k}\Omega$, 3x $10\text{ k}\Omega$ e 2x $100\text{ k}\Omega$
+7. 1x LED de 5mm (qualquer cor)
 
-Adicione aqui os exercícios deste submódulo.
+## 📝 Lista de Exercícios
+
+### Exercício 1: O Buffer (Seguidor de Tensão)
+
+**Objetivo:** Demonstre a partir do circuito abaixo, o funcionamento do Amp-Op com ganho unitário para casamento de impedâncias. Siga o passo a passo descrito.
+
+circuito - Posicione o Amp-Op na protoboard e alimente o pino 8 com os $12\text{ V}$ da fonte e o pino 4 com o GND ($0\text{ V}$). Conecte as extremidades do potenciômetro de $10\text{ k}\Omega$ aos $12\text{ V}$ e ao GND, e ligue o seu pino central (cursor) diretamente à entrada Não-Inversora (IN+). Por fim, faça um curto-circuito (usando um jumper) conectando o pino de Saída (OUT) diretamente à entrada Inversora (IN-).
+
+1. Gire o potenciômetro até aproximadamente a metade do seu curso.
+2. Meça a tensão em relação ao GND no pino da entrada Não-Inversora (IN+).
+3. Meça a tensão no pino de Saída (OUT).
+4. Varie o potenciômetro de ponta a ponta e observe como a saída se comporta nos valores extremos.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Malha de realimentação negativa (Curto-circuito Virtual): $V_{in-} = V_{in+}$
+  * Equação do Buffer (Ganho Unitário):
+    $$V_{out} = V_{in+}$$
+* **Resultados de Bancada Esperados:** 
+  * A tensão lida no pino de saída (OUT) acompanhará exatamente a tensão ajustada no potenciômetro (IN+).
+  * **Atenção à Saturação:** ao girar o potenciômetro até os $12\text{ V}$, a saída provavelmente vai travar (saturar) em torno de $10,5\text{ V}$ a $11\text{ V}$, pois o hardware interno do chip tem quedas de tensão próprias.
+
+</details>
+
+---
+
+### Exercício 2: Amplificador Não-Inversor
+
+**Objetivo:** Monte o circuito abaixo e Configure uma malha de realimentação negativa para aplicar um ganho de tensão ao sinal de entrada. Siga o passo a passo descrito.
+
+circuito - Mantenha a alimentação do CI (Pino 8 em $12\text{ V}$ e Pino 4 no GND) e o potenciômetro ligado à entrada IN+. Remova o jumper do exercício anterior. Agora, instale um resistor de $10\text{ k}\Omega$ ($R_1$) conectando a entrada Inversora (IN-) ao GND. Instale um segundo resistor de $10\text{ k}\Omega$ ($R_f$) conectando a entrada Inversora (IN-) ao pino de Saída (OUT). 
+
+1. Ajuste o potenciômetro lentamente até que a tensão na entrada IN+ meça exatamente $2,0\text{ V}$.
+2. Meça a tensão na Saída (OUT).
+3. Aumente a tensão no potenciômetro para $4,0\text{ V}$ e meça a saída novamente.
+4. Continue aumentando a tensão na entrada até $8,0\text{ V}$ e verifique o que acontece com a saída.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Equação do Ganho de Malha Fechada Não-Inversora:
+    $$V_{out} = V_{in+} \cdot \left( 1 + \frac{R_f}{R_1} \right)$$
+  * Com resistores de $10\text{ k}\Omega$:
+    $$V_{out} = V_{in+} \cdot \left( 1 + \frac{10k}{10k} \right) = V_{in+} \cdot 2$$
+* **Resultados de Bancada Esperados:** 
+  * Para $V_{in+} = 2,0\text{ V}$, a saída no multímetro será de $\approx 4,0\text{ V}$.
+  * Para $V_{in+} = 4,0\text{ V}$, a saída será de $\approx 8,0\text{ V}$.
+  * Para $V_{in+} = 8,0\text{ V}$, a saída não chegará aos teóricos $16,0\text{ V}$. O multímetro mostrará a **saturação** do Amp-Op (estacionando em cerca de $10,5\text{ V}$ a $11\text{ V}$, limitados pela fonte de $12\text{ V}$).
+
+</details>
+
+---
+
+### Exercício 3: Comparador de Tensão com Malha Aberta
+
+**Objetivo:** Prepare o circuito mostrado e Utilize o Amp-Op através da comparação com uma tensão de referência. Você deve seguir o passo a passo descrito.
+
+circuito - Mantenha o potenciômetro na entrada Não-Inversora (IN+) e a alimentação do CI. Desconecte todos os resistores ligados à entrada Inversora (IN-). Agora, monte um divisor de tensão ligando dois resistores iguais de $100\text{ k}\Omega$ em série entre os $12\text{ V}$ e o GND. Ligue o ponto central deste divisor diretamente na entrada Inversora (IN-). Por fim, conecte um resistor de $1\text{ k}\Omega$ na Saída (OUT) em série com o anodo do LED, aterrando o catodo do LED no GND.
+
+1. Posicione o potenciômetro no zero.
+2. Vá girando o eixo bem devagar enquanto observa atentamente o LED.
+3. No exato instante em que o LED acender, pare de girar o potenciômetro.
+4. Meça com o multímetro a tensão no divisor de referência (IN-) e a tensão no cursor do potenciômetro (IN+).
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Tensão de Referência:
+    $$V_{in-} = 12\text{ V} \cdot \left( \frac{100k}{100k + 100k} \right) = 6\text{ V}$$
+  * Lógica do Comparador:
+    * Se $V_{in+} > V_{in-} \rightarrow V_{out} \approx +V_{CC}$
+    * Se $V_{in+} < V_{in-} \rightarrow V_{out} \approx GND$
+* **Resultados de Bancada Esperados:** 
+  * Enquanto o potenciômetro estiver enviando menos de $6\text{ V}$ para a entrada IN+, o LED ficará completamente apagado.
+  * Ao cruzar a marca exata de $6\text{ V}$, o LED acenderá abruptamente com brilho máximo, confirmando que a saída saltou de $0\text{ V}$ para próximo de $12\text{ V}$ instantaneamente.
+
+</details>
+
+---
+
+### Exercício 4: O Amplificador Diferencial (Subtrator)
+
+**Objetivo:** Monte a configuração abaixo e amplifique a diferença de potencial entre dois sinais. Você deve seguir o passo a passo descrito.
+
+circuito - Remova o LED do circuito. Usaremos quatro resistores idênticos de $10\text{ k}\Omega$ para ter um ganho diferencial unitário. Conecte um resistor entre o ponto central do divisor de $6\text{ V}$ (montado no ex. 3) e a entrada IN-. Conecte o resistor de realimentação ($R_f$) ligando a entrada IN- à Saída (OUT). Conecte o cursor do potenciômetro passando por um resistor até a entrada IN+. Por fim, instale um resistor da entrada IN+ para o GND. 
+
+1. Ajuste a tensão do potenciômetro exatamente em $9,0\text{ V}$.
+2. Certifique-se de que a malha de referência está fornecendo $6,0\text{ V}$ constantes antes do seu respectivo resistor de entrada.
+3. Meça a tensão na Saída (OUT).
+4. Varie levemente a tensão de alimentação principal da bancada (de $12\text{ V}$ para $11\text{ V}$).
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Equação do Subtrator (com todos os resistores iguais a $R$):
+    $$V_{out} = \left( V_2 - V_1 \right) \cdot \frac{R_f}{R_1}$$
+  * Substituindo os valores ($V_2$ no IN+ e $V_1$ no IN-):
+    $$V_{out} = \left( 9\text{ V} - 6\text{ V} \right) \cdot \frac{10k}{10k} = 3\text{ V}$$
+* **Resultados de Bancada Esperados:** 
+  * O multímetro no pino de saída registrará exatamente a diferença matemática entre as duas fontes de tensão ($\approx 3,0\text{ V}$).
+  * O circuito rejeita efetivamente tensões indesejadas: se um ruído de $+1\text{ V}$ somar em ambas as entradas ao mesmo tempo (Modo Comum), a diferença entre elas continua a mesma, e a saída não sofrerá alteração.
+
+</details>

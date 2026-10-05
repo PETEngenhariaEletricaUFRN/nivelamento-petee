@@ -1,11 +1,150 @@
 ---
-slug: /eletronica-analogica/transistores-mosfet
+id: exercicios-circuitos-com-mosfet-1
+title: Exercícios - Circuitos com MOSFETs
+description: Lista de exercícios práticos sobre a montagem e análise de circuitos utilizando MOSFETs.
 ---
 
-# Transistores MOSFET
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-Exercícios sobre MOSFETs aplicados ao chaveamento de potência.
+## 🛠 Requisitos e Materiais
 
-## Exercícios
+1. Fonte de Alimentação CC (com saídas de $5\text{ V}$ e $12\text{ V}$)
+2. Protoboard e jumpers
+3. Multímetro digital (com função de amperímetro)
+4. 1x MOSFET Canal N (ex: IRLZ44N, IRF540N)
+6. 1x MOSFET Canal P (ex: IRF9540N)
+7. Resistores fixos: $220\,\Omega$, $1\text{ k}\Omega$, $10\text{ k}\Omega$ e $100\text{ k}\Omega$
+8. 1x Potenciômetro linear de $10\text{ k}\Omega$
+9. 1x Botão (pushbutton)
+10. 1x Diodo retificador 1N4007
+11. 1x LED de 5 mm
+12. 1x Motor CC pequeno
 
-Adicione aqui os exercícios deste submódulo.
+
+:::info
+Consulte sempre o *datasheet* para identificar corretamente os pinos Gate (G), Drain (D) e Source (S).
+:::
+
+## 📝 Lista de Exercícios
+
+### Exercício 1: MOSFET Canal N como Chave
+
+**Objetivo:** Montar o circuito padrão de acionamento por chaveamento com o IRLZ44N, executando o passo a passo a seguir.
+
+circuito - Conecte o **Source** do MOSFET Canal N diretamente ao GND ($0\text{ V}$). Ligue o **Drain** ao catodo do LED e o anodo do LED a um resistor de $220\,\Omega$ em série, cuja outra extremidade vai aos $5\text{ V}$. Conecte um resistor de $10\text{ k}\Omega$ entre o **Gate** e o GND (*pull-down*). Por fim, ligue um botão entre os $5\text{ V}$ e o **Gate**.
+
+1. Meça a tensão entre Gate e Source ($V_{GS}$) e a tensão entre Drain e Source ($V_{DS}$).
+2. mantenha o botão pressionado e Meça novamente $V_{GS}$ e $V_{DS}$.
+3. insira o multímetro em série entre o botão e o Gate, e pressione-o para medir a corrente de acionamento.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Corrente de Gate (estática): $I_G \approx 0\text{ A}$
+  * Tensão de acionamento (botão pressionado): $V_{GS} = 5\text{ V}$
+  * Corrente de Dreno (aproximada, com $V_{LED} \approx 2\text{ V}$):
+    $$I_D = \frac{5 - V_{LED}}{220\,\Omega} \approx \frac{5 - 2}{220} \approx 13{,}6\text{ mA}$$
+  * Tensão Dreno-Fonte em condução:
+    $$V_{DS} = I_D \cdot R_{DS(on)} \approx 0\text{ V}$$
+* **Resultados de Bancada Esperados:**
+  * **Botão solto (corte):** $V_{GS} = 0\text{ V}$, $V_{DS} \approx 5\text{ V}$ e LED apagado.
+  * **Botão pressionado (condução):** $V_{GS} \approx 5\text{ V}$, $V_{DS} \approx 0\text{ V}$ e LED aceso.
+  * **Multímetro no Gate:** registrará aproximadamente $0{,}00\text{ mA}$.
+
+</details>
+
+---
+
+### Exercício 2: Efeito Memória do Gate Flutuante
+
+**Objetivo:** Monte o circuito abaixo e Demonstre a importância do resistor de *pull-down*, executando o passo a passo a seguir.
+
+circuito - Utilize a mesma base do Exercício 1, porém **remova** o resistor de $10\text{ k}\Omega$ e o botão. O **Gate** ficará conectado apenas a um jumper longo e isolado, que funcionará como uma antena. O Source segue no GND e o conjunto Drain, LED e resistor de $220\,\Omega$ permanece ligado aos $5\text{ V}$.
+
+1. Com o circuito energizado em $5\text{ V}$, toque a ponta metálica do jumper do Gate no barramento de $5\text{ V}$ e remova-a rapidamente, deixando-a solta no ar. Observe o comportamento do LED.
+2. Toque com o dedo na ponta metálica do jumper do Gate e observe se há alteração no brilho.
+3. Toque a ponta do jumper no barramento de GND e solte novamente. Observe o LED.
+
+:::warning
+Nunca projete placas reais deixando o Gate de um MOSFET flutuando. A carga estática do ambiente pode acionar cargas de forma aleatória.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Carga armazenada no Gate: $$Q_G = C_{iss} \cdot V_{GS}$$
+  * Constante de tempo de descarga:
+    $$\tau = R_{fuga} \cdot C_{iss} \to \infty \quad (R_{fuga} \to \infty)$$
+  * Condição de condução mantida: $V_{GS} \ge V_{GS(th)}$
+  * Condição de corte após descarga manual: $V_{GS} = 0\text{ V} < V_{GS(th)}$
+* **Resultados de Bancada Esperados:**
+  * Ao tocar nos $5\text{ V}$, o LED acende e **permanece aceso** mesmo com o fio solto no ar.
+  * Ao tocar o dedo no fio, o brilho pode oscilar ou o LED pode apagar parcialmente, devido à condução pelo corpo humano e ao ruído AC captado.
+  * Ao tocar no GND, o capacitor de entrada do Gate descarrega e o LED apaga instantaneamente.
+
+</details>
+
+---
+
+### Exercício 3: MOSFET Canal P como Chave
+
+**Objetivo:** Prepare o circuito abaixo e Analise a lógica de acionamento invertida do MOSFET Canal P, executando o passo a passo a seguir.
+
+circuito - Conecte o **Source** do MOSFET Canal P diretamente aos $12\text{ V}$. Ligue o **Drain** a um resistor de $1\text{ k}\Omega$ em série com o anodo de um LED, cujo catodo vai ao GND. Conecte um resistor de $100\text{ k}\Omega$ entre o **Gate** e os $12\text{ V}$ (*pull-up*) e, por fim, ligue um botão entre o **Gate** e o GND.
+
+1. Com o botão solto, meça a tensão entre o Gate e o GND ($V_G$) e depois a tensão $V_{GS}$.
+2. Pressione o botão e repita as mesmas duas medições.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Estado de repouso (*pull-up* ativo):
+    $$V_G = 12\text{ V}, \quad V_S = 12\text{ V}$$
+    $$V_{GS} = V_G - V_S = 12 - 12 = 0\text{ V} \rightarrow \text{Corte}$$
+  * Estado ativado:
+    $$V_G = 0\text{ V}, \quad V_S = 12\text{ V}$$
+    $$V_{GS} = 0 - 12 = -12\text{ V} \rightarrow \text{Condução}$$
+  * Corrente na carga (com $V_{LED} \approx 2\text{ V}$):
+    $$I_D \approx \frac{12 - 2}{1\text{ k}\Omega} = 10\text{ mA}$$
+* **Resultados de Bancada Esperados:**
+  * **Botão solto:** $V_G \approx 12\text{ V}$, $V_{GS} \approx 0\text{ V}$ e LED apagado.
+  * **Botão pressionado:** $V_G \approx 0\text{ V}$, $V_{GS} \approx -12\text{ V}$ e LED aceso.
+
+</details>
+
+---
+
+### Exercício 5: Acionamento Indutivo (Diodo de Roda Livre)
+
+**Objetivo:** Demonstre pelo circuito abaixo a proteção do circuito de chaveamento contra a força contraeletromotriz gerada ao desligar motores ou relés, executando o passo a passo a seguir.
+
+circuito - Utilize o IRLZ44N. Ligue o **Source** ao GND e o **Drain** a um dos terminais do motor CC, e conecte o outro terminal do motor aos $12\text{ V}$. Posicione o diodo 1N4007 em antiparalelo com o motor, com o **catodo** (lado da faixa) na linha de $12\text{ V}$ e o **anodo** no **Drain** do MOSFET. Configure o **Gate** como no Exercício 1: resistor de $10\text{ k}\Omega$ para o GND (*pull-down*) e um botão ligando o Gate aos $5\text{ V}$.
+
+1. Energize os dois barramentos e pressione o botão em curtos intervalos para ligar e desligar o motor repetidamente e observe o comportamento.
+2. Se houver osciloscópio, coloque a ponteira no **Drain** e observe a forma de onda durante os pulsos, com o diodo instalado.
+
+:::warning
+Remover o diodo expõe o MOSFET a picos que podem ultrapassar o $V_{DS(max)}$ e destruí-lo.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Tensão gerada pela carga indutiva no corte:
+    $$V_{L} = L \cdot \frac{di}{dt}$$
+  * Sem diodo (corte muito rápido, $dt \to 0$): $V_{L} \to \text{valor elevado}$
+  * Tensão no Dreno sem proteção:
+    $$V_{DS} = V_{CC} + V_{L}$$
+  * Condição de falha destrutiva: $V_{DS} > V_{DS(max)}$
+  * Tensão no Dreno com diodo de roda livre:
+    $$V_{DS} \approx V_{CC} + V_D = 12 + 0{,}7 = 12{,}7\text{ V}$$
+* **Resultados de Bancada Esperados:**
+  * **Com o diodo:** o motor liga e desliga normalmente, o Drain não sofre sobretensão significativa (no osciloscópio, o pico fica em torno de $12{,}7\text{ V}$) e o MOSFET opera sem problemas.
+  * **Sem o diodo (osciloscópio):** a cada soltura do botão aparece um pico de tensão bem acima de $12\text{ V}$, seguido de oscilação de alta frequência no nó do Drain.
+
+</details>

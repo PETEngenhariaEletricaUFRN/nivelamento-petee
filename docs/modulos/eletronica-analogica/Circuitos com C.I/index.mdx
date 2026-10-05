@@ -1,11 +1,152 @@
 ---
-slug: /eletronica-analogica/circuitos-com-circuitos-integrados
+id: exercicios-circuitos-com-cis-comuns-1
+title: Exercícios - Circuitos com CIs Comuns
+description: Lista de exercícios práticos sobre a montagem e análise de circuitos utilizando CIs reguladores de tensão, temporizadores e contadores.
 ---
 
-# Circuitos com C.I.
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-Exercícios sobre a aplicação de circuitos integrados em projetos analógicos.
+## 🛠 Requisitos e Materiais
 
-## Exercícios
+1. Fonte de Alimentação CC
+2. Protoboard e Jumpers
+3. Multímetro Digital
+4. CIs: 1x LM7805, 1x LM317, 1x NE555, 1x CD4017
+5. Capacitores Cerâmicos ou Poliéster: 2x $100\text{ nF}$ e 1x $10\text{ nF}$
+6. Capacitores Eletrolíticos: 1x $100\,\mu\text{F}$
+7. Resistores fixos: $220\,\Omega$, $1\text{ k}\Omega$ e 3x $10\text{ k}\Omega$
+8. 1x Potenciômetro linear de $5\text{ k}\Omega$ ou $10\text{ k}\Omega$
+9. 3x LEDs de 5mm (cores variadas)
+10. 1x Botão (Pushbutton)
 
-Adicione aqui os exercícios deste submódulo.
+## 📝 Lista de Exercícios
+
+### Exercício 1: LM7805
+
+**Objetivo:** Monte o circuito apresentado e siga o passo a passo descrito para analisar a regulação linear e o limite inferior de operação (dropout).
+
+circuito - Posicione o CI LM7805 na protoboard. Conecte o pino 1 (IN) ao polo positivo da fonte de bancada. Conecte o pino 2 (GND) ao referencial $0\text{ V}$. Conecte o pino 3 (OUT) ao anodo de um LED em série com um resistor de $220\,\Omega$ indo para o GND. Para garantir estabilidade contra oscilações parasitas, conecte um capacitor de $100\text{ nF}$ entre IN e GND, e outro de $100\text{ nF}$ entre OUT e GND, o mais próximo possível dos pinos do CI.
+
+1. Ajuste a fonte de bancada para $9,0\text{ V}$. Meça a tensão exata no pino OUT.
+2. Reduza a tensão da fonte para $7,0\text{ V}$ e repita a medição no pino OUT.
+3. Reduza a tensão da fonte para $5,0\text{ V}$ e anote a tensão no pino OUT e o comportamento visual do LED.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Regulação Nominal: $V_{out} = 5,0\text{ V}$ 
+  * Condição Operacional de Tensão Mínima:
+    $$V_{in} \ge V_{out} + V_{dropout}$$
+  * Dissipação de Potência em formato de calor:
+    $$P_D = (V_{in} - V_{out}) \cdot I_{carga}$$
+* **Resultados de Bancada Esperados:** 
+  * Para $V_{in} = 9\text{ V}$ e $7\text{ V}$: A saída ficará estritamente cravada em $\approx 5,0\text{ V}$. O regulador absorve o excesso.
+  * Para $V_{in} = 5\text{ V}$: A tensão de saída cairá para algo em torno de $3,5\text{ V}$ a $4,0\text{ V}$ e o brilho do LED cairá severamente. Reguladores lineares clássicos exigem tipicamente $2\text{ V}$ a mais na entrada (Tensão de *Dropout*) para conseguirem regular a saída.
+
+</details>
+
+---
+
+### Exercício 2: LM317 como Regulador Ajustável
+
+**Objetivo:** Monte o circuito apresentado abaixo e siga o passo a passo descrito e demonstre a malha de realimentação resistiva que define a tensão em um regulador ajustável.
+
+circuito - Posicione o LM317 na protoboard. Alimente o pino 3 (IN) com os $12\text{ V}$ da fonte. Instale um resistor de $220\,\Omega$ ($R_1$) conectando o pino 2 (OUT) diretamente ao pino 1 (ADJ). Conecte os terminais laterais e centrais do potenciômetro (configurado como reostato, unindo o pino central a um pino lateral) atuando como $R_2$, interligando o pino 1 (ADJ) ao GND. Use o multímetro em paralelo com a saída (pino 2 e GND) para monitoramento constante.
+
+1. Gire o eixo do potenciômetro para a resistência mínima. Meça a tensão de saída.
+2. Meça a tensão contínua especificamente entre o pino OUT e o pino ADJ.
+3. Gire o potenciômetro lentamente até a sua resistência máxima e observe a variação da tensão no multímetro na saída principal.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Tensão de Referência Fixa do CI: $V_{ref} = 1,25\text{ V}$ (mantida entre os pinos OUT e ADJ).
+  * Equação da Tensão de Saída:
+    $$V_{out} = 1,25 \cdot \left( 1 + \frac{R_2}{R_1} \right) + I_{adj} \cdot R_2$$
+  * *Como a $I_{adj}$ é da ordem de microamperes, o último termo costuma ser desprezado.*
+* **Resultados de Bancada Esperados:** 
+  * Com $R_2 = 0\,\Omega$, a saída não zera, mas assume o valor da referência interna do CI, medindo $\approx 1,25\text{ V}$.
+  * A tensão sobre o resistor $R_1$ será de inabaláveis $1,25\text{ V}$, independentemente da posição do potenciômetro.
+  * Com o potenciômetro no máximo, a tensão subirá de forma linear até ser limitada pela fonte menos o *dropout* ($\approx 10,5\text{ V}$).
+
+</details>
+
+---
+
+### Exercício 3: NE555 em Configuração Astável (Oscilador)
+
+**Objetivo:** Monte o circuito apresentado abaixo e siga o passo a passo descrito e observe a carga/descarga capacitiva atuando como gerador de onda quadrada (Clock).
+
+circuito - Alimente o pino 8 (VCC) e o pino 4 (RESET) do NE555 com a linha de $9\text{ V}$. Aterre o pino 1 no GND. Conecte um resistor de $10\text{ k}\Omega$ ($R_A$) do VCC ao pino 7 (DISCH). Ligue um segundo resistor de $10\text{ k}\Omega$ ($R_B$) do pino 7 ao pino 6 (THR). Use um jumper curto para conectar o pino 6 ao pino 2 (TRIG). Insira um capacitor eletrolítico de $100\,\mu\text{F}$ ligando os pinos unidos (2 e 6) ao GND. Coloque um pequeno capacitor cerâmico de $10\text{ nF}$ do pino 5 (CTRL) para o GND. Na saída (Pino 3), ligue um resistor de $1\text{ k}\Omega$ em série com um LED para o terra.
+
+1. Ligue a fonte e observe visualmente a frequência de oscilação do LED.
+2. Mova a ponta vermelha do multímetro para o pino 2 (sobre o capacitor de $100\,\mu\text{F}$) e observe a variação da tensão ao longo da oscilação.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Tempo Alto (carga através de $R_A + R_B$):
+    $$t_H = \ln(2) \cdot (R_A + R_B) \cdot C = 0,693 \cdot 20k \cdot 100\mu \approx 1,38\text{ s}$$
+  * Tempo Baixo (descarga apenas por $R_B$):
+    $$t_L = \ln(2) \cdot R_B \cdot C = 0,693 \cdot 10k \cdot 100\mu \approx 0,69\text{ s}$$
+  * Período Total ($T = t_H + t_L$) e Frequência ($f = 1/T$):
+    $$T \approx 2,07\text{ s} \rightarrow f \approx 0,48\text{ Hz}$$
+* **Resultados de Bancada Esperados:** 
+  * O LED piscará assimetricamente, ficando aceso o dobro do tempo que passa apagado.
+  * O multímetro mostrará a tensão no capacitor subindo de $1/3 V_{CC}$ ($3,0\text{ V}$) até $2/3 V_{CC}$ ($6,0\text{ V}$) e depois descarregando de volta para os $3,0\text{ V}$ em um ciclo contínuo.
+
+</details>
+
+---
+
+### Exercício 4: NE555 em Configuração Monoestável (Timer)
+
+**Objetivo:** Monte o circuito apresentado abaixo e siga o passo a passo descrito e analise o chaveamento de um pulso único e temporizado.
+
+circuito - Ajuste a montagem anterior. Mantenha os pinos de alimentação ($1, 4$ e $8$) e os capacitores do pino 5 e da saída (pino 3 com LED). Agora, conecte o pino 6 e o pino 7 diretamente um ao outro com um jumper. Ligue um resistor de $10\text{ k}\Omega$ ($R$) do VCC a esta junção (pinos 6/7), e conecte o capacitor eletrolítico de $100\,\mu\text{F}$ da junção para o GND. No pino 2 (TRIG), remova a ligação com o pino 6. Instale um resistor de $10\text{ k}\Omega$ ligando o pino 2 ao VCC (Pull-up) e conecte o botão (Pushbutton) ligando o pino 2 ao GND.
+
+1. Observe o estado inicial de repouso do LED.
+2. Dê um clique rápido no botão, solte imediatamente e estime o tempo em que o LED permanece aceso antes de apagar sozinho.
+3. Pressione o botão novamente, mas desta vez segure-o pressionado sem soltar. Observe a saída.
+
+:::tip
+Esta configuração é excelente para *debounce* (remoção de ruído mecânico).
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Duração do Pulso Único (Tempo de carga até $2/3 V_{CC}$):
+    $$t_W = \ln(3) \cdot R \cdot C = 1,1 \cdot 10k \cdot 100\mu = 1,1\text{ s}$$
+* **Resultados de Bancada Esperados:** 
+  * Em repouso, o pino 2 fica alto ($9\text{ V}$) e a saída desligada. O LED fica apagado.
+  * Ao dar um toque no botão, o gatilho recebe $0\text{ V}$. A saída vai para nível lógico ALTO imediatamente e o LED acende, ficando assim por exatos $\approx 1,1\text{ s}$, independente de quantos ruídos mecânicos o botão gerou durante o clique.
+  * Se o botão for mantido pressionado além de $1,1\text{ s}$, a saída permanecerá ligada até o botão ser solto, pois o gatilho sobrepõe o comparador de limiar interno.
+
+</details>
+
+---
+
+### Exercício 5: O Contador de Década CD4017 (Sequenciador)
+
+**Objetivo:** Monte o circuito apresentado abaixo e siga o passo a passo descrito para compreender a operação de Máquinas de Estados Finitos baseadas no contador Johnson.
+
+circuito - Alimente o CI CD4017 conectando o pino 16 à linha de $9\text{ V}$ e o pino 8 ao GND. Conecte os pinos 13 (Clock Inhibit - Enable Ativo Baixo) e 15 (Reset) diretamente ao GND para permitir a contagem ininterrupta. Conecte três resistores de $1\text{ k}\Omega$ e três LEDs direcionados ao GND nas saídas sequenciais: Q0 (Pino 3), Q1 (Pino 2) e Q2 (Pino 4). Para gerar o pulso de Clock (Pino 14), monte um circuito com o botão conectando os $9\text{ V}$ ao Pino 14, e adicione um resistor de $10\text{ k}\Omega$ conectando o Pino 14 ao GND (Pull-down).
+
+1. Energize o circuito. Identifique visualmente qual das três saídas (Q0, Q1 ou Q2) inicia em estado Alto (LED aceso).
+2. Pressione e solte o botão lentamente uma única vez. Observe o comportamento da sequência de LEDs.
+3. Pressione repetidas vezes para observar o ciclo do componente.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Resultados de Bancada Esperados:** 
+  * Ao ligar, o contador reinicia a máquina, portanto o LED do Q0 (Pino 3) será o único aceso.
+  * A cada pulso no botão, o LED atual apaga e o seguinte acende (Q0 $\to$ Q1 $\to$ Q2).
+
+</details>

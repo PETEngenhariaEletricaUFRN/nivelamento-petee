@@ -1,11 +1,128 @@
 ---
-slug: /eletronica-analogica/circuitos-com-diodos
+id: exercicios-circuitos-com-diodos-1
+title: Exercícios - Circuitos com Diodos
+description: Lista de exercícios práticos sobre a montagem e análise de circuitos utilizando diodos retificadores e Zener.
 ---
 
-# Circuitos com Diodos
+## 🛠 Requisitos e Materiais
 
-Exercícios sobre retificação de meia onda e retificação em ponte.
+1. Fonte de Alimentação CC
+2. Protoboard e Jumpers
+3. Multímetro Digital
+4. 3x Diodos Retificadores
+5. 1x Diodo Zener de $5,1\text{ V}$ 
+6. Resistores fixos: $220\,\Omega$ e $1\text{ k}\Omega$
+7. 1x LED de 5mm (qualquer cor)
 
-## Exercícios
+## 📝 Lista de Exercícios
 
-Adicione aqui os exercícios deste submódulo.
+### Exercício 1: Polarização Direta e Reversa (Barreira de Potencial)
+
+**Objetivo:** Monte o circuito apresentado para verificar a condução unilateral do diodo e medir a queda de tensão característica.
+
+**Montagem do Circuito:** Conecte a fonte de **$5\text{ V}$** ao anodo (lado sem faixa) de um diodo 1N4007. Conecte o catodo (lado com a faixa prata) a um resistor de $1\text{ k}\Omega$, e o outro terminal do resistor ao GND ($0\text{ V}$).
+
+1. Com o circuito energizado (polarização direta), meça a tensão em paralelo exclusivamente sobre os terminais do diodo.
+2. Desligue a fonte, inverta a posição do diodo na protoboard (catodo para o positivo, anodo para o resistor).
+3. Religue a fonte (polarização reversa) e meça novamente a tensão sobre o diodo, e em seguida, a tensão sobre o resistor.
+
+:::tip 
+O diodo ideal age como uma chave (fechada num sentido, aberta no outro). O diodo real (no caso do silício) exige uma queda de tensão de aproximadamente $0,7\text{ V}$ para começar a conduzir na polarização direta.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Conceitos Teóricos:** 
+  Na polarização direta, o diodo de silício consome aproximadamente $0,7\text{ V}$. O restante da tensão vai para o resistor ($5\text{ V} - 0,7\text{ V} = 4,3\text{ V}$). 
+  Na polarização reversa, o diodo atua como um circuito aberto, impedindo o fluxo de corrente ($I = 0\text{ A}$).
+* **Resultados de Bancada Esperados:** 
+  * Polarização Direta: O multímetro indicará $\approx 0,65\text{ V}$ a $0,7\text{ V}$ sobre o diodo.
+  * Polarização Reversa: A tensão sobre o diodo será igual à da fonte ($5,00\text{ V}$), pois não há queda de tensão no resistor (corrente zero). A tensão no resistor será $0,00\text{ V}$.
+
+</details>
+
+---
+
+### Exercício 2: Proteção contra Inversão de Polaridade
+
+**Objetivo:** Monte o circuito apresentado utilizando o diodo em série com uma carga sensível para protegê-la contra ligações invertidas.
+
+**Montagem do Circuito:** Monte uma série partindo da fonte de alimentação $\rightarrow$ Anodo do Diodo 1N4007 $\rightarrow$ Catodo do Diodo $\rightarrow$ Resistor de $220\,\Omega$ $\rightarrow$ Anodo do LED $\rightarrow$ Catodo do LED $\rightarrow$ GND da fonte.
+
+1. Ajuste a fonte para **$5\text{ V}$** e ligue o circuito. Observe o LED.
+2. Simule um erro de usuário: inverta os cabos da fonte que chegam na protoboard.
+3. Observe se o LED acende.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Conceitos Teóricos:**
+  Ao ligar corretamente, o diodo fica polarizado diretamente e permite a corrente fluir acendendo o LED. Ao inverter a fonte, o diodo entra em polarização reversa e bloqueia a corrente.
+* **Resultados de Bancada Esperados:** 
+  * Conexão correta: O LED acenderá normalmente.
+  * Conexão invertida: O LED permanecerá apagado e totalmente protegido, pois o diodo retificador suporta tensões reversas muito altas.
+
+</details>
+
+---
+
+### Exercício 3: O Diodo Zener como Regulador de Tensão
+
+**Objetivo:** Monte o circuito apresentado para analisar a tensão constante nos terminais do zener quando submetido à polarização reversa.
+
+**Montagem do Circuito:** Conecte a fonte de alimentação em série com um resistor limitador de $1\text{ k}\Omega$. O outro lado do resistor deve ir ao **Catodo** (lado com a faixa) do Diodo Zener de $5,1\text{ V}$. O **Anodo** do Zener vai ao GND. (Note que ele é montado "invertido" em relação à corrente).
+
+1. Ajuste a fonte de alimentação para **$12\text{ V}$**. Meça a tensão em paralelo com o diodo Zener.
+2. Reduza a tensão da fonte para **$8\text{ V}$** e meça novamente a tensão no Zener.
+3. Reduza a tensão da fonte para **$3\text{ V}$** e faça a última medição no Zener.
+
+:::tip 
+O resistor limitador é indispensável para evitar que a corrente destrua o componente.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Com fonte a $12\text{ V}$ ou $8\text{ V}$, a tensão supera os $5,1\text{ V}$ nominais. O Zener "ceifa" a tensão nos seus terminais travando em $5,1\text{ V}$ e o resistor dissipa o resto.
+  * Com fonte a $3\text{ V}$, a tensão não é suficiente para atingir o ponto de ruptura. O Zener não conduz e se comporta como um circuito aberto.
+* **Resultados de Bancada Esperados:** 
+  * Tensão da fonte a $12\text{ V}$: Tensão no Zener $\approx 5,1\text{ V}$.
+  * Tensão da fonte a $8\text{ V}$: Tensão no Zener $\approx 5,1\text{ V}$.
+  * Tensão da fonte a $3\text{ V}$: Tensão no Zener $\approx 3,0\text{ V}$.
+
+</details>
+
+---
+
+### Exercício 4: Ponte Retificadora de Onda Completa
+
+**Objetivo:** Monte o circuito apresentado para demonstrar o direcionamento de corrente em uma ponte de 4 diodos.
+
+**Montagem do Circuito:** Monte uma ponte com quatro diodos 1N4007 na protoboard:
+* **Nó 1 (Saída Positiva):** Una os catodos de D1 e D2.
+* **Nó 2 (Saída GND):** Una os anodos de D3 e D4.
+* **Nó 3 (Entrada A):** Una o anodo de D1 com o catodo de D3.
+* **Nó 4 (Entrada B):** Una o anodo de D2 com o catodo de D4.
+* Conecte um resistor de $1\text{ k}\Omega$ entre o Nó 1 e o Nó 2 (sua carga).
+
+1. Conecte a fonte de **$5\text{ V}$** nas entradas da ponte: Positivo no Nó 3 e GND no Nó 4.
+2. Com o multímetro, meça a tensão e a polaridade sobre o resistor de carga.
+3. Agora, simule o semiciclo negativo de uma onda AC invertendo fisicamente os cabos da fonte de alimentação: Positivo no Nó 4 e GND no Nó 3.
+4. Meça novamente a tensão sobre o resistor. Observe se o sinal no multímetro indicará tensão negativa ou se manterá positiva.
+
+:::tip
+Na prática, essa topologia recebe tensão alternada (AC) no secundário de um transformador.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  Como a corrente atravessa sempre dois diodos simultaneamente, a queda teórica é $V_D \times 2$ ($0,7\text{ V} + 0,7\text{ V} = 1,4\text{ V}$).
+  A tensão na carga será: $5,0\text{ V} - 1,4\text{ V} = 3,6\text{ V}$.
+* **Resultados de Bancada Esperados:**
+  * Independentemente de como a fonte for ligada aos nós, o multímetro sobre o resistor sempre registrará uma tensão **positiva** de aproximadamente $3,6\text{ V}$.
+
+</details>
