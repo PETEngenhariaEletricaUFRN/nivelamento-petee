@@ -1,0 +1,564 @@
+---
+title: Exercícios - Circuitos com Portas Lógicas
+description: Lista de exercícios práticos sobre a montagem e análise de circuitos combinacionais e sequenciais utilizando portas lógicas.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## 🛠 Requisitos e Materiais
+
+1. Fonte de Alimentação CC
+2. Protoboard e Jumpers
+3. Multímetro Digital
+4. CIs Lógicos (Família 74HC): 1x 74HC04 (NOT), 1x 74HC08 (AND), 1x 74HC32 (OR), 1x 74HC00 (NAND), 1x 74HC02 (NOR) e 1x 74HC86 (XOR)
+5. Chaves tipo Dip-Switch
+6. Resistores fixos: 20x de $10\text{ k}\Omega$ e 10x de $220\,\Omega$
+7. LEDs de 5mm (cores variadas)
+8. 1x Capacitor Cerâmico de $100\text{ nF}$
+
+:::tip
+Consulte sempre o *datasheet*.
+:::
+
+## 📝 Lista de Exercícios
+
+### Exercício 1: Porta NOT
+
+**Objetivo:** Monte o circuito abaixo e Verifique a inversão de estado lógico de uma única variável. Siga o passo a passo descrito.
+
+circuito - Posicione o CI 74HC04 na protoboard e alimente-o (VCC e GND). Conecte uma chave (A) ligando o $5\text{ V}$ ao pino 1 (Entrada 1A), e adicione um resistor de $10\text{ k}\Omega$ do pino 1 para o GND (*pull-down*). Conecte o pino 2 (Saída 1Y) ao anodo de um LED em série com um resistor de $220\,\Omega$ indo para o GND.
+
+1. Deixe a chave A aberta (nível lógico Baixo / $0\text{ V}$). Observe o estado do LED.
+2. Feche a chave A (nível lógico Alto / $5\text{ V}$). Observe a alteração no LED.
+3. Meça a tensão exata no pino 2 para confirmar os níveis de tensão de saída.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Equação Booleana: $Y = \overline{A}$
+  * Tabela Verdade:
+  
+| Entrada A | Saída Y ($\overline{A}$) |
+| :---: | :---: |
+| 0 | **1** |
+| 1 | **0** |
+
+* **Resultados de Bancada Esperados:** 
+  * Chave aberta ($A = 0$): O LED acenderá (Saída $\approx 5\text{ V}$).
+  * Chave fechada ($A = 1$): O LED apagará (Saída $\approx 0\text{ V}$).
+
+</details>
+
+---
+
+### Exercício 2: Porta AND
+
+**Objetivo:** Analise o comportamento de uma porta AND. Monte o circuito mostrado abaixo e siga o passo a passo descrito.
+
+circuito - Alimente o CI 74HC08. Conecte as chaves A e B aos pinos 1 (1A) e 2 (1B), ambas com resistores de *pull-down* de $10\text{ k}\Omega$ para o GND. Conecte o pino 3 (1Y) ao circuito do LED (anodo + resistor de $220\,\Omega$ para o GND).
+
+1. Mantenha ambas as chaves (A e B) abertas e observe o LED.
+2. Feche apenas a chave A e anote o resultado.
+3. Abra a chave A e feche apenas a chave B.
+4. Feche ambas as chaves simultaneamente e observe o LED.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Equação Booleana: $Y = A \cdot B$
+  * Tabela Verdade:
+  
+| Entrada A | Entrada B | Saída Y ($A \cdot B$) |
+| :---: | :---: | :---: |
+| 0 | 0 | **0** |
+| 0 | 1 | **0** |
+| 1 | 0 | **0** |
+| 1 | 1 | **1** |
+
+* **Resultados de Bancada Esperados:** 
+  * O LED permanecerá apagado nos passos 1, 2 e 3.
+  * O LED acenderá unicamente no passo 4, quando as duas chaves aplicarem $5\text{ V}$ nas entradas.
+
+</details>
+
+---
+
+### Exercício 3: Porta OR
+
+**Objetivo:** Demonstre a função lógica OR a partir do circuito abaixo. Siga o passo a passo descrito.
+
+circuito - Alimente o CI 74HC32. Conecte as chaves A e B aos pinos 1 e 2, garantindo o *pull-down* de $10\text{ k}\Omega$ em cada entrada. Ligue o pino 3 ao LED limitando a corrente com o resistor de $220\,\Omega$.
+
+1. Teste a combinação $A=0$ e $B=0$.
+2. Teste a combinação $A=1$ e $B=0$.
+3. Teste a combinação $A=0$ e $B=1$.
+4. Teste a combination $A=1$ e $B=1$.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Equação Booleana: $Y = A + B$
+  * Tabela Verdade:
+
+| Entrada A | Entrada B | Saída Y ($A + B$) |
+| :---: | :---: | :---: |
+| 0 | 0 | **0** |
+| 0 | 1 | **1** |
+| 1 | 0 | **1** |
+| 1 | 1 | **1** |
+
+* **Resultados de Bancada Esperados:** 
+  * O LED ficará apagado apenas quando nenhuma chave for acionada.
+  * Se qualquer uma das chaves (ou ambas) for ligada aos $5\text{ V}$, o LED acenderá.
+
+</details>
+
+---
+
+### Exercício 4: Porta NAND
+
+**Objetivo:** Verificar a operação da porta NAND. Monte o circuito mostrado abaixo e siga o passo a passo descrito.
+
+circuito - Alimente o CI 74HC00. Conecte as chaves A e B com seus respectivos *pull-downs* aos pinos 1 e 2 do CI. Ligue o pino 3 ao circuito do LED (resistor de $220\,\Omega$ em série).
+
+1. Execute as quatro combinações binárias das chaves (00, 01, 10, 11).
+2. Anote o estado do LED em cada uma das configurações.
+
+:::info
+A porta NAND é chamada de "Universal" pois, a partir dela, é possível construir (sintetizar) qualquer outra porta lógica ou circuito complexo.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Equação Booleana: $Y = \overline{A \cdot B}$
+  * Tabela Verdade:
+
+| Entrada A | Entrada B | Saída Y ($\overline{A \cdot B}$) |
+| :---: | :---: | :---: |
+| 0 | 0 | **1** |
+| 0 | 1 | **1** |
+| 1 | 0 | **1** |
+| 1 | 1 | **0** |
+
+* **Resultados de Bancada Esperados:** 
+  * O LED iniciará aceso (00) e continuará aceso para as combinações (01) e (10).
+  * O LED apagará somente quando ambas as chaves estiverem em $5\text{ V}$ (11).
+
+</details>
+
+---
+
+### Exercício 5: Porta NOR
+
+**Objetivo:** Analisar a porta NOR (OR invertida). Monte o circuito mostrado e siga o passo a passo descrito.
+
+circuito - Alimente o CI 74HC02. **Atenção:** Conecte as chaves A e B aos pinos **2 e 3** (entradas). Conecte o pino **1** (saída) ao circuito do LED. Mantenha os resistores de *pull-down* nas entradas.
+
+1. Teste e anote o estado visual do LED para as combinações $A=0, B=0$.
+2. Teste e anote para $A=1, B=0$.
+3. Teste e anote para $A=0, B=1$.
+4. Teste e anote para $A=1, B=1$.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Equação Booleana: $Y = \overline{A + B}$
+  * Tabela Verdade:
+
+| Entrada A | Entrada B | Saída Y ($\overline{A + B}$) |
+| :---: | :---: | :---: |
+| 0 | 0 | **1** |
+| 0 | 1 | **0** |
+| 1 | 0 | **0** |
+| 1 | 1 | **0** |
+
+* **Resultados de Bancada Esperados:** 
+  * O LED ficará aceso **apenas** quando ambas as chaves estiverem abertas (00).
+  * Qualquer chave acionada forçará a saída para $0\text{ V}$, apagando o LED.
+
+</details>
+
+---
+
+### Exercício 6: Porta XOR
+
+**Objetivo:** Teste a porta XOR montando o circuito abaixo e siga o passo a passo descrito.
+
+circuito - Alimente o CI 74HC86. Ligue as chaves A e B aos pinos 1 e 2, aplicando os resistores de *pull-down*. Ligue o pino 3 ao LED (com o resistor de $220\,\Omega$).
+
+1. Coloque as duas chaves na posição 0. Observe o LED.
+2. Comute apenas a chave A para 1.
+3. Volte a A para 0 e comute B para 1.
+4. Comute ambas para 1 e observe a saída.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Equação Booleana: $Y = A \oplus B = A\overline{B} + \overline{A}B$
+  * Tabela Verdade:
+
+| Entrada A | Entrada B | Saída Y ($A \oplus B$) |
+| :---: | :---: | :---: |
+| 0 | 0 | **0** |
+| 0 | 1 | **1** |
+| 1 | 0 | **1** |
+| 1 | 1 | **0** |
+
+* **Resultados de Bancada Esperados:** 
+  * Combinações iguais (00 e 11): O LED fica apagado.
+  * Combinações diferentes (01 e 10): O LED acende.
+
+</details>
+
+---
+
+
+### Exercício 7: Porta XNOR
+
+**Objetivo:**  Teste a porta XNOR montando o circuito abaixo e siga o passo a passo descrito.
+
+circuito - Monte uma porta XOR (74HC86) com as chaves A e B nos pinos 1 e 2. Pegue a saída do pino 3 e insira na entrada do inversor 74HC04 (pino 1). Ligue a saída do inversor (pino 2) no LED.
+
+1. Coloque ambas as chaves na posição 0.
+2. Comute uma chave para criar diferença.
+3. Coloque ambas em 1 e observe.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+* **Cálculos Teóricos:**
+  * Equação: $Y = \overline{A \oplus B} = \overline{A}\,\overline{B} + AB$
+  * Tabela Verdade:
+
+| Entrada A | Entrada B | Saída Y ($\overline{A \oplus B}$) |
+| :---: | :---: | :---: |
+| 0 | 0 | **1** |
+| 0 | 1 | **0** |
+| 1 | 0 | **0** |
+| 1 | 1 | **1** |
+
+* **Resultados de Bancada Esperados:** 
+  * Como é um Ou-Exclusivo Negado, o LED acenderá **apenas** quando $A$ e $B$ forem iguais (00 ou 11).
+
+</details>
+
+---
+### Exercício 8: Lógica de Maioria
+
+**Objetivo:** Implementar um circuito Lógico de 3 entradas, cuja saída aciona em nível lógico alto ($1$) sempre que a maioria dos níveis lógicos de entrada estiver em nível alto. Monte a tabela verdade, obtenha a equação do circuito e simplifique-a utilizando mapa de Karnaugh desenhe o circuito combinacional e ao final monte o circuito na protoboard seguindo o passo a passo abaixo para testar o circuito.
+
+1. Teste o acionamento de apenas 1 chave qualquer.
+2. Teste o acionamento de 2 chaves quaisquer simultaneamente.
+3. Teste todas as 3 chaves ligadas.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+**Cálculos Teóricos:**
+
+**1. Tabela Verdade**
+
+| Chave A | Chave B | Chave C | Saída Y |
+| :---: | :---: | :---: | :---: |
+| 0 | 0 | 0 | **0** |
+| 0 | 0 | 1 | **0** |
+| 0 | 1 | 0 | **0** |
+| 0 | 1 | 1 | **1** |
+| 1 | 0 | 0 | **0** |
+| 1 | 0 | 1 | **1** |
+| 1 | 1 | 0 | **1** |
+| 1 | 1 | 1 | **1** |
+
+**2. Equação obtida através da Tabela Verdade**
+Extraindo os termos onde a saída é $1$:
+
+$Y = \overline{A}BC + A\overline{B}C + AB\overline{C} + ABC$
+
+**3. Mapa de Karnaugh**
+Agrupando os mintermos em pares (1s adjacentes):
+
+| A \ BC | 00 | 01 | 11 | 10 |
+| :---: | :---: | :---: | :---: | :---: |
+| **0** | 0 | 0 | 1 | 0 |
+| **1** | 0 | 1 | 1 | 1 |
+
+*Agrupamentos:*
+*   Par 1 (coluna 11): $BC$
+*   Par 2 (linha 1, colunas 01 e 11): $AC$
+*   Par 3 (linha 1, colunas 11 e 10): $AB$
+
+**4. Equação Simplificada**
+
+$Y = AB + AC + BC$
+
+**5. Circuito Lógico**
+
+-circuito
+
+
+
+**Resultados de Bancada Esperados:** 
+*   Com $0$ ou $1$ chave ativada, o LED fica apagado.
+*   Com $2$ ou $3$ chaves ativadas, o LED acende em nível ALTO.
+
+</details>
+
+### Exercício 9: Intertravamento de Segurança
+
+**Contexto:** Em um sistema de acionamento industrial, um motor de indução trifásico possui três variáveis de monitoramento: um Sensor de Temperatura no estator (A), um Sensor de Corrente (B) e um Botão de Emergência manual (C). 
+
+**Objetivo:** Projetar um circuito combinacional que gere um sinal de parada ($Y=1$) para desarmar o inversor de frequência se o Botão de Emergência for acionado, **OU** se os sensores de Temperatura e Corrente detectarem anomalias **simultaneamente**. Monte a tabela verdade, obtenha a equação do circuito e simplifique-a utilizando mapa de Karnaugh, Desenhe o circuito combinacional e ao final monte o circuito na protoboard seguindo o passo a passo abaixo para testar o circuito.
+
+*   **Chave A (Temperatura):** $0$ = Normal, $1$ = Sobreaquecimento
+*   **Chave B (Corrente):** $0$ = Normal, $1$ = Sobrecarga
+*   **Chave C (Emergência):** $0$ = Liberado, $1$ = Pressionado
+
+**Passo a passo prático:**
+1. Teste o circuito acionando apenas a temperatura ou apenas a corrente.
+2. Teste acionar temperatura e corrente juntas.
+3. Teste o botão de emergência isoladamente e em combinação com outros sensores.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+**Cálculos Teóricos:**
+
+**1. Tabela Verdade**
+
+| A (Temp) | B (Corr) | C (Emerg) | Saída Y (Parada) |
+| :---: | :---: | :---: | :---: |
+| 0 | 0 | 0 | **0** |
+| 0 | 0 | 1 | **1** |
+| 0 | 1 | 0 | **0** |
+| 0 | 1 | 1 | **1** |
+| 1 | 0 | 0 | **0** |
+| 1 | 0 | 1 | **1** |
+| 1 | 1 | 0 | **1** |
+| 1 | 1 | 1 | **1** |
+
+**2. Equação obtida através da Tabela Verdade (Soma dos Mintermos)**
+$Y = \overline{A}\,\overline{B}C + \overline{A}BC + A\overline{B}C + AB\overline{C} + ABC$
+
+**3. Mapa de Karnaugh**
+
+| A \ BC | 00 | 01 | 11 | 10 |
+| :---: | :---: | :---: | :---: | :---: |
+| **0** | 0 | 1 | 1 | 0 |
+| **1** | 0 | 1 | 1 | 1 |
+
+*Agrupamentos:*
+*   Quadra (colunas 01 e 11 inteiras): $C$
+*   Par (linha 1, colunas 11 e 10): $AB$
+
+**4. Equação Simplificada**
+$Y = C + AB$
+
+**5. Circuito Lógico**
+-circuito_intertravamento (Uma porta AND recebendo A e B, ligada a uma porta OR recebendo C).
+
+---
+
+**Resultados de Bancada Esperados:** 
+*   Sempre que a chave C for ligada, o LED acende.
+*   Se C estiver desligada, o LED só acende se as chaves A e B estiverem ligadas ao mesmo tempo.
+
+</details>
+
+---
+
+### Exercício 10: Controle de Automação de Nível
+
+**Contexto:** Um reservatório de água automatizado possui 3 sensores de nível instalados em alturas diferentes: Fundo (A), Meio (B) e Topo (C). Como a água enche de baixo para cima, é fisicamente impossível que um sensor superior detecte água enquanto um sensor inferior estiver seco.
+
+**Objetivo:** Projete o acionamento de uma bomba de enchimento ($Y=1$). A bomba deve ligar sempre que o nível da água estiver **abaixo do sensor do meio**. Utilize as condições impossíveis para otimizar o circuito. Monte a tabela verdade, obtenha a equação do circuito e simplifique-a utilizando mapa de Karnaugh, desenhe o circuito combinacional e ao final monte o circuito na protoboard seguindo o passo a passo abaixo para testar o circuito.
+
+*   **Chave A (Fundo):** $0$ = Seco, $1$ = Submerso
+*   **Chave B (Meio):** $0$ = Seco, $1$ = Submerso
+*   **Chave C (Topo):** $0$ = Seco, $1$ = Submerso
+
+**Passo a passo prático:**
+1. Configure os sensores para o tanque vazio (000) e veja a bomba ligar.
+2. Simule a água subindo cobrindo o Fundo (100).
+3. Simule a água cobrindo o Meio (110).
+
+:::tip
+Condições *Don't Care* ($X$) ocorrem quando uma combinação de entradas nunca vai acontecer na prática (ex: Topo submerso e Fundo seco).
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito (Com Don't Care)</summary>
+
+**Cálculos Teóricos:**
+
+**1. Tabela Verdade**
+
+| A (Fundo) | B (Meio) | C (Topo) | Estado Físico | Saída Y (Bomba) |
+| :---: | :---: | :---: | :--- | :---: |
+| 0 | 0 | 0 | Tanque Vazio | **1** |
+| 0 | 0 | 1 | Impossível | **X** |
+| 0 | 1 | 0 | Impossível | **X** |
+| 0 | 1 | 1 | Impossível | **X** |
+| 1 | 0 | 0 | Nível no Fundo | **1** |
+| 1 | 0 | 1 | Impossível | **X** |
+| 1 | 1 | 0 | Nível no Meio | **0** |
+| 1 | 1 | 1 | Tanque Cheio | **0** |
+
+**2. Equação obtida através da Tabela Verdade**
+$Y = \overline{A}\overline{B}\overline{C} + A\overline{B}\overline{C}$
+
+**3. Mapa de Karnaugh**
+
+| A \ BC | 00 | 01 | 11 | 10 |
+| :---: | :---: | :---: | :---: | :---: |
+| **0** | 1 | X | X | X |
+| **1** | 1 | X | 0 | 0 |
+
+*Agrupamentos:*
+Agrupando os '1's com os 'X's das colunas 00 e 01 (assumindo que esses 'X' valem 1), formamos uma quadra abrangendo a metade esquerda inteira do mapa.
+
+**4. Equação Simplificada**
+$Y = \overline{B}$
+
+**5. Circuito Lógico**
+-circuito_bomba (Apenas uma porta NOT ligada na entrada B. As entradas A e C sequer precisam ser conectadas ao hardware de controle).
+
+
+**Resultados de Bancada Esperados:** 
+*   Se B estiver em $0$, o LED acende. Se B estiver em $1$, o LED apaga.
+
+</details>
+
+---
+
+### Exercício 11: O Meio Somador
+
+**Objetivo:** Projete e implemente um circuito lógico capaz de realizar a adição aritmética de dois bits independentes. O circuito deve gerar duas saídas lógicas distintas: o bit de Soma ($\Sigma$) e o bit de transporte ou "Vai-Um" ($C_{out}$). Monte a tabela verdade, obtenha a equação do circuito e simplifique-a utilizando mapa de Karnaugh, desenhe o circuito combinacional e ao final monte o circuito na protoboard seguindo o passo a passo abaixo para testar o circuito.
+
+**Passo a passo prático:**
+1. Faça $1 + 0$ ($A=1, B=0$) e verifique os LEDs.
+2. Faça $1 + 1$ ($A=1, B=1$) e avalie qual LED acende.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+**Cálculos Teóricos:**
+
+**1. Tabela Verdade**
+
+| Entrada A | Entrada B | Carry ($C_{out}$) | Soma ($\Sigma$) |
+| :---: | :---: | :---: | :---: |
+| 0 | 0 | **0** | **0** |
+| 0 | 1 | **0** | **1** |
+| 1 | 0 | **0** | **1** |
+| 1 | 1 | **1** | **0** |
+
+**2. Equações obtidas através da Tabela Verdade (Soma dos Mintermos)**
+*   Para a Soma ($\Sigma$): $\Sigma = \overline{A}B + A\overline{B}$
+*   Para o Carry ($C_{out}$): $C_{out} = AB$
+
+**3. Mapas de Karnaugh**
+
+*Mapa para a Soma ($\Sigma$):*
+
+| A \ B | 0 | 1 |
+| :---: | :---: | :---: |
+| **0** | 0 | 1 |
+| **1** | 1 | 0 |
+
+*(Nota: Como os 1s estão em diagonal, não há agrupamentos possíveis para simplificação via portas AND/OR simples. Esse padrão em xadrez é a definição exata da porta Ou-Exclusiva, XOR).*
+
+*Mapa para o Carry ($C_{out}$):*
+
+| A \ B | 0 | 1 |
+| :---: | :---: | :---: |
+| **0** | 0 | 0 |
+| **1** | 0 | 1 |
+
+*(Nenhum agrupamento possível além do próprio elemento isolado).*
+
+**4. Equações Simplificadas**
+*   $\Sigma = A \oplus B$ (Porta XOR)
+*   $C_{out} = A \cdot B$ (Porta AND)
+
+**5. Circuito Lógico**
+
+Use um 74HC86 (XOR) e um 74HC08 (AND). Ligue as chaves A e B aos pinos 1 e 2 do XOR **E** simultaneamente aos pinos 1 e 2 do AND. Ligue o pino 3 do XOR a um LED azul (Representando a Soma / $\Sigma$). Ligue o pino 3 do AND a um LED vermelho (Representando o Carry / $C_{out}$).
+
+-circuito_half_adder
+
+
+
+**Resultados de Bancada Esperados:** 
+*   $0 + 0 = 0$: Ambos LEDs apagados.
+*   $1 + 0$ ou $0 + 1 = 1$: LED da soma aceso, LED carry apagado.
+*   $1 + 1 = 2$: LED do carry acende e LED apaga indicando o zero.
+
+</details>
+
+---
+
+### Exercício 12: Multiplexador de 2 canais para 1 (MUX 2x1)
+
+**Objetivo:** Desenvolva um circuito lógico de um Multiplexador (MUX 2x1). O sistema deve utilizar uma variável lógica de seleção ($S$) para rotear o fluxo de dados de um de dois canais de entrada ($D0$ ou $D1$) para uma única via de saída ($Y$). Monte a tabela verdade, obtenha a equação do circuito e simplifique-a utilizando mapa de Karnaugh, desenhe o circuito combinacional e ao final monte o circuito na protoboard seguindo o passo a passo abaixo para testar o circuito.
+
+**Passo a passo prático:**
+1. Ajuste $D0 = 1$ e $D1 = 0$.
+2. Com a chave $S = 0$, veja se o valor de D0 passa para o LED.
+3. Mude a chave $S = 1$ e veja se o valor de D1 (que é 0) passa para o LED.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+**Cálculos Teóricos:**
+
+**1. Tabela Verdade**
+
+| Sel (S) | Dado 1 (D1) | Dado 0 (D0) | Saída Y |
+| :---: | :---: | :---: | :---: |
+| 0 | 0 | 0 | **0** |
+| 0 | 0 | 1 | **1** |
+| 0 | 1 | 0 | **0** |
+| 0 | 1 | 1 | **1** |
+| 1 | 0 | 0 | **0** |
+| 1 | 0 | 1 | **0** |
+| 1 | 1 | 0 | **1** |
+| 1 | 1 | 1 | **1** |
+
+**2. Equação obtida através da Tabela Verdade (Soma dos Mintermos)**
+Extraindo os mintermos onde a saída $Y = 1$:
+
+$Y = \overline{S}\cdot\overline{D_1}\cdot D_0 + \overline{S}\cdot D_1\cdot D_0 + S\cdot D_1\cdot\overline{D_0} + S\cdot D_1\cdot D_0$
+
+**3. Mapa de Karnaugh**
+
+| S \ D1 D0 | 00 | 01 | 11 | 10 |
+| :---: | :---: | :---: | :---: | :---: |
+| **0** | 0 | 1 | 1 | 0 |
+| **1** | 0 | 0 | 1 | 1 |
+
+*Agrupamentos:*
+*   Par 1 (Linha 0, colunas 01 e 11): $\overline{S}D_0$
+*   Par 2 (Linha 1, colunas 11 e 10): $S D_1$
+
+**4. Equação Simplificada**
+$Y = (\overline{S} \cdot D_0) + (S \cdot D_1)$
+
+**5. Circuito Lógico**
+
+Teremos 3 chaves: D0 (Dado 0), D1 (Dado 1) e S (Seletora). Use um 74HC04 (NOT), 74HC08 (AND) e 74HC32 (OR). Ligue a chave S na entrada de uma NOT e também no pino 5 de uma porta AND. Ligue D1 no pino 4 dessa porta AND. A saída negada de S vai para o pino 2 de outra AND, onde o pino 1 recebe D0. As saídas das duas ANDs vão para as entradas de um OR, cuja saída final vai para o LED.
+
+-circuito_mux_2x1
+
+**Resultados de Bancada Esperados:** 
+*   Se a Seletora ($S = 0$), a porta AND de baixo é ativada. O LED copia rigorosamente o estado da chave D0, ignorando se você mexe na D1.
+*   Se a Seletora ($S = 1$), a porta AND de cima é ativada. O LED passa a espelhar rigorosamente o estado da chave D1, ignorando a D0.
+
+</details>

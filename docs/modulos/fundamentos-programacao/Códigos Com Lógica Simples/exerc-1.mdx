@@ -1,8 +1,6 @@
 ---
 id: exercicios-codigos-com-logica-simples-1
 title: Exercícios - Códigos Com Lógica Simples
-sidebar_label: 1. Exerc
-sidebar_position: 1
 description: Lista de exercícios práticos e desafios sobre Códigos Com Lógica Simples.
 ---
 
@@ -11,27 +9,657 @@ import TabItem from '@theme/TabItem';
 
 ## 🛠 Requisitos e Materiais
 
-1. [Ferramenta / Software / Componente 1]
-2. [Ferramenta / Software / Componente 2]
-3. [Link de arquivo base ou datasheet, se aplicável]
+1. Compilador C++ (por exemplo, `g++` com suporte a C++17).
+2. Editor de texto ou IDE de sua preferência (VS Code, Code::Blocks, CLion etc.).
+3. Compilação sugerida: `g++ -std=c++17 -Wall -Wextra programa.cpp -o programa`
+
+:::info
+- Leitura: `std::cin >> x;` para números; `std::getline(std::cin, nome);` para textos com espaços.
+:::
 
 ## 📝 Lista de Exercícios
 
-### Exercício 1: [TÍTULO DO EXERCÍCIO] (Básico)
+### Exercício 1: Olá, Mundo!
 
-**Objetivo:** [Descreva sucintamente o objetivo do exercício.]
+**Objetivo:** Escrever o primeiro programa em C++ e exibir uma mensagem na tela.
 
-1. [Instrução ou passo 1].
-2. [Instrução ou passo 2].
-3. [Instrução ou passo 3].
+1. Inclua a biblioteca `<iostream>`.
+2. Na função `main`, use `std::cout` para exibir a mensagem `Olá, Mundo!`.
+3. Compile e execute o programa.
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+
+using namespace std
+
+int main() {
+    cout << "Olá, Mundo!" << endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 2: Boas-vindas
+
+**Objetivo:** Ler o nome de uma pessoa (com espaços) e exibir uma mensagem de boas-vindas personalizada.
+
+1. Declare uma variável `std::string` para guardar o nome.
+2. Leia o nome com `std::getline`.
+3. Exiba a mensagem de boas-vindas usando o nome lido.
+
+```
+Qual é o seu nome? João da Silva
+Olá João da Silva, é um prazer te conhecer!
+```
 
 :::tip Dica
-[Insira aqui uma dica ou atalho relevante para a solução do problema.]
+`std::cin >> nome` lê apenas até o primeiro espaço. Para nomes completos, use `std::getline(std::cin, nome)`.
 :::
 
 <details>
 <summary>💡 Ver Resolução / Gabarito</summary>
 
-[Descreva a solução explicada aqui.]
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string nome;
+
+    std::cout << "Qual é o seu nome? ";
+    std::getline(std::cin, nome);
+
+    std::cout << "Olá " << nome << ", é um prazer te conhecer!" << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 3: Ficha do Funcionário (Básico)
+
+**Objetivo:** Ler dados de tipos diferentes (texto e número real) e exibi-los em uma mensagem.
+
+1. Declare uma `std::string` para o nome e um `double` para o salário.
+2. Leia o nome com `getline` e o salário com `cin`.
+3. Exiba a mensagem final no formato do exemplo.
+
+```
+Nome do Funcionário: Maria do Carmo
+Salário: 1850.45
+O funcionário Maria do Carmo tem um salário de R$1850.45 em Junho.
+```
+
+:::tip Dica
+Leia o nome **antes** do número. Se um `getline` vier depois de um `cin >> numero`, será preciso limpar o `Enter` pendente com `std::cin.ignore()`.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string nome;
+    double salario;
+
+    std::cout << "Nome do Funcionário: ";
+    std::getline(std::cin, nome);
+
+    std::cout << "Salário: ";
+    std::cin >> salario;
+
+    std::cout << "O funcionário " << nome
+              << " tem um salário de R$" << salario << " em Junho." << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 4: Soma de Dois Números (Básico)
+
+**Objetivo:** Ler dois números inteiros e exibir a soma entre eles.
+
+1. Declare duas variáveis `int` e uma para o resultado.
+2. Leia os dois valores.
+3. Calcule e exiba a soma.
+
+```
+Digite um valor: 8
+Digite outro valor: 5
+A soma entre 8 e 5 é igual a 13.
+```
+
+:::tip Dica
+Você pode calcular a soma diretamente dentro do `cout`: `std::cout << a + b;`.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+
+int main() {
+    int a, b;
+
+    std::cout << "Digite um valor: ";
+    std::cin >> a;
+    std::cout << "Digite outro valor: ";
+    std::cin >> b;
+
+    int soma = a + b;
+    std::cout << "A soma entre " << a << " e " << b
+              << " é igual a " << soma << "." << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 5: Média de um Aluno (Básico)
+
+**Objetivo:** Calcular a média aritmética de duas notas.
+
+1. Leia as duas notas como `double`.
+2. Calcule a média: `(nota1 + nota2) / 2`.
+3. Exiba o resultado.
+
+```
+Nota 1: 4.5
+Nota 2: 8.5
+A média entre 4.5 e 8.5 é igual a 6.5
+```
+
+:::tip Dica
+Use parênteses para somar antes de dividir. `nota1 + nota2 / 2` não calcula a média.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+
+int main() {
+    double nota1, nota2;
+
+    std::cout << "Nota 1: ";
+    std::cin >> nota1;
+    std::cout << "Nota 2: ";
+    std::cin >> nota2;
+
+    double media = (nota1 + nota2) / 2;
+    std::cout << "A média entre " << nota1 << " e " << nota2
+              << " é igual a " << media << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 6: Antecessor e Sucessor (Básico)
+
+**Objetivo:** Exibir o antecessor e o sucessor de um número inteiro.
+
+1. Leia um número inteiro.
+2. Calcule o antecessor (`n - 1`) e o sucessor (`n + 1`).
+3. Exiba os dois valores.
+
+```
+Digite um número: 9
+O antecessor de 9 é 8
+O sucessor de 9 é 10
+```
+
+:::tip Dica
+Evite usar `n--` ou `n++` dentro do `cout`, pois eles alteram o valor de `n`. Prefira `n - 1` e `n + 1`.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+
+int main() {
+    int n;
+
+    std::cout << "Digite um número: ";
+    std::cin >> n;
+
+    std::cout << "O antecessor de " << n << " é " << n - 1 << std::endl;
+    std::cout << "O sucessor de " << n << " é " << n + 1 << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 7: Dobro e Terça Parte (Básico)
+
+**Objetivo:** Calcular o dobro e a terça parte de um número real, atentando para a divisão inteira.
+
+1. Leia um número do tipo `double`.
+2. Calcule o dobro (`n * 2`) e a terça parte (`n / 3`).
+3. Exiba os resultados.
+
+```
+Digite um número: 3.5
+O dobro de 3.5 é 7.0
+A terça parte de 3.5 é 1.16666
+```
+
+:::tip Dica
+Se `n` fosse `int`, a divisão `n / 3` descartaria a parte decimal. Com `double`, o resultado mantém as casas decimais.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+
+int main() {
+    double n;
+
+    std::cout << "Digite um número: ";
+    std::cin >> n;
+
+    std::cout << "O dobro de " << n << " é " << n * 2 << std::endl;
+    std::cout << "A terça parte de " << n << " é " << n / 3 << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 8: Conversão de Unidades de Distância (Básico)
+
+**Objetivo:** Converter uma distância em metros para outras unidades do sistema métrico.
+
+1. Leia a distância em metros (`double`).
+2. Converta para km, hm, dam, dm, cm e mm.
+3. Exiba todas as conversões.
+
+```
+Digite uma distância em metros: 185.72
+A distância de 185.72m corresponde a:
+0.18572Km
+1.8572Hm
+18.572Dam
+1857.2dm
+18572.0cm
+185720.0mm
+```
+
+:::tip Dica
+Dividir por 1000 equivale a converter para quilômetros; multiplicar por 10, 100 e 1000 converte para dm, cm e mm.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+
+int main() {
+    double m;
+
+    std::cout << "Digite uma distância em metros: ";
+    std::cin >> m;
+
+    std::cout << "A distância de " << m << "m corresponde a:" << std::endl;
+    std::cout << m / 1000 << "Km" << std::endl;
+    std::cout << m / 100  << "Hm" << std::endl;
+    std::cout << m / 10   << "Dam" << std::endl;
+    std::cout << m * 10   << "dm" << std::endl;
+    std::cout << m * 100  << "cm" << std::endl;
+    std::cout << m * 1000 << "mm" << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 9: Conversor de Reais para Dólares (Básico)
+
+**Objetivo:** Converter um valor em reais para dólares usando uma cotação fixa.
+
+1. Defina a cotação como constante: US$ 1,00 = R$ 3,45.
+2. Leia o valor em reais disponível na carteira.
+3. Calcule e exiba quantos dólares podem ser comprados.
+
+:::tip Dica
+Declare `const double cotacao = 3.45;`. Assim o valor fica nomeado e não pode ser alterado por engano. Use `std::fixed << std::setprecision(2)` para exibir duas casas decimais.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    const double cotacao = 3.45;
+    double reais;
+
+    std::cout << "Quanto dinheiro você tem na carteira (R$)? ";
+    std::cin >> reais;
+
+    double dolares = reais / cotacao;
+
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "Com R$" << reais << " você pode comprar US$"
+              << dolares << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 10: Tinta para Pintar uma Parede (Básico)
+
+**Objetivo:** Calcular a área de uma parede e a quantidade de tinta necessária.
+
+1. Leia a largura e a altura da parede (em metros).
+2. Calcule a área (`largura * altura`).
+3. Sabendo que cada litro de tinta pinta 2 m², calcule a quantidade de litros necessária.
+4. Exiba a área e os litros de tinta.
+
+:::tip Dica
+Litros de tinta = área / 2. Use `double` para não perder a parte decimal.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+
+int main() {
+    double largura, altura;
+
+    std::cout << "Largura da parede (m): ";
+    std::cin >> largura;
+    std::cout << "Altura da parede (m): ";
+    std::cin >> altura;
+
+    double area = largura * altura;
+    double litros = area / 2;
+
+    std::cout << "Área a ser pintada: " << area << " m²" << std::endl;
+    std::cout << "Quantidade de tinta necessária: " << litros << " litros" << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 11: Delta da Equação do Segundo Grau (Básico)
+
+**Objetivo:** Calcular o discriminante (Delta) de uma equação do tipo ax² + bx + c = 0.
+
+1. Leia os coeficientes A, B e C.
+2. Calcule Delta pela fórmula: `b*b - 4*a*c`.
+3. Exiba o valor de Delta.
+
+:::tip Dica
+Para elevar ao quadrado, basta multiplicar `b * b`. Também é possível usar `std::pow(b, 2)` da biblioteca `<cmath>`.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+
+int main() {
+    double a, b, c;
+
+    std::cout << "Digite o valor de A: ";
+    std::cin >> a;
+    std::cout << "Digite o valor de B: ";
+    std::cin >> b;
+    std::cout << "Digite o valor de C: ";
+    std::cin >> c;
+
+    double delta = b * b - 4 * a * c;
+
+    std::cout << "O valor de Delta é " << delta << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 12: Preço Promocional (Básico)
+
+**Objetivo:** Aplicar um desconto percentual ao preço de um produto.
+
+1. Leia o preço do produto.
+2. Calcule o preço promocional com 5% de desconto.
+3. Exiba o novo preço.
+
+:::tip Dica
+Um desconto de 5% equivale a pagar 95% do valor: `preco * 0.95`, ou `preco - preco * 0.05`.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    double preco;
+
+    std::cout << "Preço do produto: R$";
+    std::cin >> preco;
+
+    double promocional = preco * 0.95;
+
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "O produto que custava R$" << preco
+              << " na promoção com 5% de desconto vai custar R$"
+              << promocional << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 13: Reajuste de Salário (Básico)
+
+**Objetivo:** Aplicar um aumento percentual ao salário de um funcionário.
+
+1. Leia o salário atual.
+2. Calcule o novo salário com 15% de aumento.
+3. Exiba o resultado.
+
+:::tip Dica
+Um aumento de 15% equivale a multiplicar o valor por `1.15`.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    double salario;
+
+    std::cout << "Salário atual: R$";
+    std::cin >> salario;
+
+    double novoSalario = salario * 1.15;
+
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "Com 15% de aumento, o novo salário é R$"
+              << novoSalario << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 14: Aluguel de Carros (Básico)
+
+**Objetivo:** Calcular o valor total de um aluguel com parte fixa (por dia) e parte variável (por Km).
+
+1. Leia a quantidade de Km percorridos e a quantidade de dias de aluguel.
+2. Considere R$90 por dia e R$0,20 por Km rodado.
+3. Calcule e exiba o preço total a pagar.
+
+:::tip Dica
+Total = `dias * 90 + km * 0.20`. Guarde os valores unitários em constantes para facilitar futuras alterações.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    const double valorDia = 90.0;
+    const double valorKm = 0.20;
+    double km;
+    int dias;
+
+    std::cout << "Quantidade de Km percorridos: ";
+    std::cin >> km;
+    std::cout << "Quantidade de dias de aluguel: ";
+    std::cin >> dias;
+
+    double total = dias * valorDia + km * valorKm;
+
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "O total a pagar é R$" << total << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 15: Salário por Horas Trabalhadas (Básico)
+
+**Objetivo:** Calcular o salário mensal a partir dos dias trabalhados e do valor da hora.
+
+1. Leia o número de dias trabalhados no mês.
+2. Considere 8 horas por dia e R$25 por hora trabalhada.
+3. Calcule e exiba o salário do funcionário.
+
+:::tip Dica
+Salário = `dias * 8 * 25`. Se quiser, calcule antes o total de horas trabalhadas em uma variável separada.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    const int horasPorDia = 8;
+    const double valorHora = 25.0;
+    int dias;
+
+    std::cout << "Dias trabalhados no mês: ";
+    std::cin >> dias;
+
+    int horas = dias * horasPorDia;
+    double salario = horas * valorHora;
+
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "Com " << horas << " horas trabalhadas, o salário é R$"
+              << salario << std::endl;
+    return 0;
+}
+```
+
+</details>
+
+---
+
+### Exercício 16: Tempo de Vida Perdido por um Fumante (Desafio)
+
+**Objetivo:** Estimar quantos dias de vida um fumante perde, combinando várias conversões de unidade.
+
+1. Leia a quantidade de cigarros fumados por dia e há quantos anos a pessoa fuma.
+2. Considere que cada cigarro reduz 10 minutos de vida e que um ano tem 365 dias.
+3. Calcule o total de cigarros fumados, o total de minutos perdidos e converta para dias (1 dia = 1440 minutos).
+4. Exiba o total de dias de vida perdidos.
+
+:::tip Dica
+Cigarros totais = `cigarrosPorDia * 365 * anos`. Minutos perdidos = `cigarrosTotais * 10`. Dias perdidos = `minutos / 1440.0`. O `.0` evita a divisão inteira.
+:::
+
+<details>
+<summary>💡 Ver Resolução / Gabarito</summary>
+
+```cpp
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    int cigarrosPorDia, anos;
+
+    std::cout << "Quantos cigarros você fuma por dia? ";
+    std::cin >> cigarrosPorDia;
+    std::cout << "Há quantos anos você fuma? ";
+    std::cin >> anos;
+
+    int cigarrosTotais = cigarrosPorDia * 365 * anos;
+    int minutosPerdidos = cigarrosTotais * 10;
+    double diasPerdidos = minutosPerdidos / 1440.0;
+
+    std::cout << std::fixed << std::setprecision(1);
+    std::cout << "Você perderá cerca de " << diasPerdidos
+              << " dias de vida." << std::endl;
+    return 0;
+}
+```
 
 </details>
